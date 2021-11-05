@@ -6,20 +6,25 @@ is a personal project, its goal mainly for learning purpose while improve **Full
 
 ### Techstacks used:
 1. Frontend libraries and frameworks
-   - ReactJS
-   - Material UI kit React / Material UI
+   - ReactJS 🔥
+   - TailwindCSS 🌬️ with UI components from DaisyUI 🌼
 2. Backend libraries and frameworks
-   - NextJS + ExpressJS
-   - PassportJS 
-   - Node-OracleDB
+   - NextJS + ExpressJS 🎃
+   - Passport Authentication 🛂
+   - Node-OracleDB 🎉
 3. Database
    - Oracle Database 19c
    - Oracle SQL Developer
 4. Deploy to Vercel
 
-### Main task list
+
+### Main tasks list
 - [x] Create a welcome page
 - [ ] Create a skill page
 - [ ] Create a CV page
 - [ ] Login with authentication using newly created account or using social network
 - [ ] Contact page show people's comments section
+### Side tasks list
+- [ ] Learning TailwindCSS pattern
+- [ ] Practice Nextjs folder structure
+- [ ] Everything worth learning about Nextjs
