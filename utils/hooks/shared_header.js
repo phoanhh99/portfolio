@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
-function UseAnimation() {
+import { useState } from 'react'
+function useAnimation() {
    const [state, setState] = useState({
       lightMode: '',
       darkMode: '',
       style: {},
+      distance: 0,
    })
+
 
    //Actions
    function handleAnimation(mode = "", target = "") {
@@ -35,6 +37,7 @@ function UseAnimation() {
             })
          : setState(prev => {
             return {
+               ...prev,
                lightMode: '',
                darkMode: '',
                style: {}
@@ -47,4 +50,4 @@ function UseAnimation() {
    }
 }
 
-export { UseAnimation };
+export { useAnimation };
