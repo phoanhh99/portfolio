@@ -27,6 +27,8 @@ export default function SharedHeader() {
       if (typeof window === "object") {
          document.cookie = `switch=${status}; path='/'; max-age = ${60 * 60 * 24 * 10};`;
       }
+      return status ? document.documentElement.setAttribute('data-theme', 'halloween')
+         : document.documentElement.setAttribute('data-theme', 'cupcake')
    }, [status])
 
    return (
