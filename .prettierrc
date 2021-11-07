@@ -1,0 +1,31 @@
+{
+  "arrowParens": "avoid",
+  "bracketSameLine": false,
+  "bracketSpacing": false,
+  "embeddedLanguageFormatting": "auto",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "printWidth": 80,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "semi": false,
+  "jsxSingleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "useTabs": false,
+  "endOfLine": "crlf",
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "options": {
+        "parser": "babel"
+      }
+    },
+    {
+      "files": ["*.json", "*.babelrc", "*.prettierrc"],
+      "options": {
+        "parser": "json"
+      }
+    }
+  ]
+}

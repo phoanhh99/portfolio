@@ -1,19 +1,24 @@
-.fill--white{
-   filter: invert(81%) sepia(64%) saturate(4%) hue-rotate(314deg) brightness(101%) contrast(88%);
+.fill--white {
+  filter: invert(81%) sepia(64%) saturate(4%) hue-rotate(314deg)
+    brightness(101%) contrast(88%);
 }
 
-.fill--teal{
-   filter: invert(64%) sepia(48%) saturate(614%) hue-rotate(132deg) brightness(89%) contrast(97%);
+.fill--teal {
+  filter: invert(64%) sepia(48%) saturate(614%) hue-rotate(132deg)
+    brightness(89%) contrast(97%);
 }
 
-.fill--yellow{
-   filter: invert(82%) sepia(70%) saturate(2882%) hue-rotate(330deg) brightness(97%) contrast(104%);
+.fill--yellow {
+  filter: invert(82%) sepia(70%) saturate(2882%) hue-rotate(330deg)
+    brightness(97%) contrast(104%);
 }
 
-.fill--pink{
-   filter: invert(56%) sepia(28%) saturate(6344%) hue-rotate(324deg) brightness(101%) contrast(101%);
+.fill--pink {
+  filter: invert(56%) sepia(28%) saturate(6344%) hue-rotate(324deg)
+    brightness(101%) contrast(101%);
 }
 
-.fill--purple{
-   filter: invert(20%) sepia(98%) saturate(5034%) hue-rotate(285deg) brightness(103%) contrast(128%);
+.fill--purple {
+  filter: invert(20%) sepia(98%) saturate(5034%) hue-rotate(285deg)
+    brightness(103%) contrast(128%);
 }
