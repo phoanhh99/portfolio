@@ -6,6 +6,6 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": ["warn", {"singleQuote": true}]
   }
 }

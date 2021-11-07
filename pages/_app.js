@@ -1,8 +1,8 @@
 import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'
-import Layout from '~/components/container/layout'
+import Layout from '~/components/layout/layout'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({Component, pageProps}) {
   return (
     <Layout>
       <Component {...pageProps} />
