@@ -1,9 +1,8 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 function useAnimation() {
   const [state, setState] = useState({
     lightMode: '',
     darkMode: '',
-    style: {},
     isPressed: false,
   })
 
@@ -14,21 +13,13 @@ function useAnimation() {
         ? setState(prev => {
             return {
               ...prev,
-              darkMode: 'fa-fade',
-              style: {
-                '--fa-animation-duration': '1s',
-                '--fa-fade-opacity': '0.6',
-              },
+              darkMode: 'animate-pulse ',
             }
           })
         : setState(prev => {
             return {
               ...prev,
-              lightMode: 'fa-fade',
-              style: {
-                '--fa-animation-duration': '1s',
-                '--fa-fade-opacity': '0.6',
-              },
+              lightMode: 'animate-pulse ',
             }
           })
       : setState(prev => {
@@ -58,4 +49,49 @@ function useAnimation() {
   return {state, handleAnimation, handlePress}
 }
 
-export {useAnimation}
+function useTheme() {
+  const [state, setState] = useState({
+    theme: true, //Change it to null will make the switch not trigger
+    isMounted: false,
+  })
+
+  const preventHydration = () => {
+    setState(prevState => {
+      return {
+        ...prevState,
+        isMounted: true,
+      }
+    })
+  }
+  const saveLocal = v => {
+    localStorage.setItem('theme', v)
+    setState(prev => {
+      return {
+        ...prev,
+        theme: v,
+      }
+    })
+  }
+  useEffect(() => {
+    const saved = localStorage.getItem('theme') // Check if existed
+    const value = !!saved ? JSON.parse(saved) : undefined
+    setState(prev => {
+      return {
+        ...prev,
+        theme: value,
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    !state.theme
+      ? (document.documentElement.setAttribute('data-theme', 'fantasy'),
+        localStorage.setItem('theme', false))
+      : (document.documentElement.setAttribute('data-theme', 'halloween'),
+        localStorage.setItem('theme', true))
+  }, [state.theme]) //Add state.isMounted so that event handler will triggered properly
+
+  return {state, saveLocal, preventHydration}
+}
+
+export {useAnimation, useTheme}

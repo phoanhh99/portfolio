@@ -1,16 +1,22 @@
 import {SunIcon, MoonIcon, LoginIcon, MenuIcon} from '@heroicons/react/outline'
 import cn from 'classnames'
-import {useAnimation} from 'utils/hooks/shared_header'
+import {useAnimation, useTheme} from 'utils/hooks/shared_header'
 import React from 'react'
 import SharedSideBar from '~/components/container/shared_sidebar'
 
-export default function SharedHeader(props) {
-  const {theme, handleChange} = props
+export default function SharedHeader() {
   const {
-    state: {lightMode, darkMode, style, isPressed},
+    state: {isMounted, theme},
+    preventHydration,
+    saveLocal,
+  } = useTheme()
+  const {
+    state: {lightMode, darkMode, isPressed},
     handleAnimation,
     handlePress,
   } = useAnimation()
+
+  if (!isMounted) return preventHydration()
 
   const loginBtn = cn(
     theme
@@ -42,7 +48,7 @@ export default function SharedHeader(props) {
               className='btn btn-square btn-sm sm:btn-md lg:btn-md btn-ghost'
               onClick={handlePress}
             >
-              <MenuIcon />
+              <MenuIcon className='mx-1' />
             </button>
           </div>
           <div className='flex-none hidden lg:inline-flex'>
@@ -50,7 +56,6 @@ export default function SharedHeader(props) {
               <SunIcon
                 className={cn('mx-1 h-7 w-7', lightMode)}
                 fill={!theme ? '#F59E0B' : 'none'}
-                style={style}
                 onMouseEnter={() => handleAnimation('start', 'light')}
                 onMouseLeave={() => handleAnimation('stop', 'light')}
               />
@@ -58,14 +63,13 @@ export default function SharedHeader(props) {
                 <input
                   type='checkbox'
                   className='toggle toggle-lg toggle-primary'
-                  onChange={e => handleChange(e.target.checked)}
+                  onChange={e => saveLocal(e.target.checked)}
                   defaultChecked={theme}
                 />
               </div>
               <MoonIcon
                 className={cn('mx-1 h-7 w-7', darkMode)}
                 fill={theme ? '#F3F4F6' : 'none'}
-                style={style}
                 onMouseEnter={() => handleAnimation('start', 'dark')}
                 onMouseLeave={() => handleAnimation('stop', 'dark')}
               />

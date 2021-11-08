@@ -10,6 +10,6 @@ module.exports = {
       features: {
         'custom-properties': false,
       },
-    }
-  }
+    },
+  },
 }

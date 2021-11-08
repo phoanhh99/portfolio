@@ -6,19 +6,6 @@ const blurTransparent =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
 
 export default function Homepage() {
-  // const {theme, handleChange} = props
-
-  // if (typeof window !== 'undefined') {
-  //   if (localStorage.getItem('theme') === '') {
-  //     theme
-  //       ? localStorage.setItem('theme', 'halloween')
-  //       : localStorage.setItem('theme', 'fantasy')
-  //   } else {
-  //     const savedTheme = localStorage.getItem('theme')
-  //     savedTheme === 'halloween' ? handleChange(false) : handleChange(true)
-  //   }
-  // }
-
   return (
     <>
       <Head>

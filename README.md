@@ -9,13 +9,13 @@ is a personal project, its goal mainly for learning purpose while improve **Full
    - ReactJS 🔥
    - TailwindCSS 🌬️ with UI components from DaisyUI 🌼
 2. Backend libraries and frameworks
-   - NextJS + ExpressJS 🎃
+   - NextJS 🎃
    - Passport Authentication 🛂
    - Node-OracleDB 🎉
 3. Database
    - Oracle Database 19c
    - Oracle SQL Developer
-4. Deploy to Vercel
+4. Deploy to Vercel 🔺
 
 
 ### Main tasks list
