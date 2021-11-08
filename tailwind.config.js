@@ -10,4 +10,11 @@ module.exports = {
     logs: true,
     rtl: false,
   },
+  theme: {
+    extend: {
+      transitionTimingFunction: {
+        'bounce-in-out': 'cubic-bezier(.59,-0.06,.37,1.03)',
+      },
+    },
+  },
 }
