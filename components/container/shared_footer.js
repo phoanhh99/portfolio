@@ -1,6 +1,6 @@
-import Image from "next/image"
-import styles from "styles/modules/svgColor.module.css"
-import cn from "classnames"
+import Image from 'next/image'
+import styles from 'styles/modules/svgColor.module.css'
+import cn from 'classnames'
 
 export default function SharedFooter() {
   return (
@@ -11,13 +11,13 @@ export default function SharedFooter() {
         target='_blank'
         rel='noopener noreferrer'
       >
-        Powered by{" "}
+        Powered by{' '}
         <Image
-          className={cn(styles["fill--pink"], "!mt-1 !py-1")}
+          className={cn(styles['fill--pink'], '!mt-1 !py-1')}
           src='/vercel.svg'
           alt='Vercel Logo'
-          width={"60%"}
-          height={"60%"}
+          width={'60%'}
+          height={'60%'}
           priority
         />
       </a>

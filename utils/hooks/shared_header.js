@@ -4,16 +4,17 @@ function useAnimation() {
     lightMode: '',
     darkMode: '',
     style: {},
+    isPressed: false,
   })
 
   //Actions
-  function handleAnimation(mode = '', target = '') {
-    return mode === 'start'
-      ? target === 'light'
+  const handleAnimation = (mode = '', target = '') =>
+    mode === 'start'
+      ? target !== 'light'
         ? setState(prev => {
             return {
               ...prev,
-              lightMode: 'fa-fade',
+              darkMode: 'fa-fade',
               style: {
                 '--fa-animation-duration': '1s',
                 '--fa-fade-opacity': '0.6',
@@ -23,7 +24,7 @@ function useAnimation() {
         : setState(prev => {
             return {
               ...prev,
-              darkMode: 'fa-fade',
+              lightMode: 'fa-fade',
               style: {
                 '--fa-animation-duration': '1s',
                 '--fa-fade-opacity': '0.6',
@@ -38,12 +39,23 @@ function useAnimation() {
             style: {},
           }
         })
-  }
 
-  return {
-    state,
-    handleAnimation,
-  }
+  const handlePress = () =>
+    state.isPressed
+      ? setState(prevState => {
+          return {
+            ...prevState,
+            isPressed: false,
+          }
+        })
+      : setState(prevState => {
+          return {
+            ...prevState,
+            isPressed: true,
+          }
+        })
+
+  return {state, handleAnimation, handlePress}
 }
 
 export {useAnimation}

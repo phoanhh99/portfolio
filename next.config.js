@@ -5,7 +5,7 @@ const nextConfig = {
   /* config options here */
   reactStrictMode: true,
   images: {
-    domains: ["picsum.photos"],
+    domains: ['picsum.photos', 'tailwindui.com', 'images.unsplash.com'],
   },
 }
 
