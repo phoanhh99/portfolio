@@ -1,22 +1,20 @@
 import {SunIcon, MoonIcon, LoginIcon, MenuIcon} from '@heroicons/react/outline'
 import cn from 'classnames'
 import {useAnimation, useTheme} from 'utils/hooks/shared_header'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import SharedSideBar from '~/components/container/shared_sidebar'
 
 export default function SharedHeader() {
-  const {
-    state: {isMounted, theme},
-    preventHydration,
-    saveLocal,
-  } = useTheme()
+  const [mount, setMount] = useState(false)
   const {
     state: {lightMode, darkMode, isPressed},
     handleAnimation,
     handlePress,
   } = useAnimation()
 
-  if (!isMounted) return preventHydration()
+  const {theme, saveLocal} = useTheme()
+  useEffect(() => setMount(true), [])
+  if (!mount) return null
 
   const loginBtn = cn(
     theme
@@ -46,7 +44,7 @@ export default function SharedHeader() {
           <div className='flex flex-none lg:hidden '>
             <button
               className='btn btn-square btn-sm sm:btn-md lg:btn-md btn-ghost'
-              onClick={handlePress}
+              onClick={() => handlePress()}
             >
               <MenuIcon className='mx-1' />
             </button>
@@ -63,13 +61,13 @@ export default function SharedHeader() {
                 <input
                   type='checkbox'
                   className='toggle toggle-lg toggle-primary'
-                  onChange={e => saveLocal(e.target.checked)}
-                  defaultChecked={theme}
+                  onChange={e => saveLocal(e.currentTarget.checked)}
+                  checked={!!theme}
                 />
               </div>
               <MoonIcon
                 className={cn('mx-1 h-7 w-7', darkMode)}
-                fill={theme ? '#F3F4F6' : 'none'}
+                fill={theme ? '#F59E0B' : 'none'}
                 onMouseEnter={() => handleAnimation('start', 'dark')}
                 onMouseLeave={() => handleAnimation('stop', 'dark')}
               />
@@ -87,6 +85,7 @@ export default function SharedHeader() {
         theme={theme}
         isPressed={isPressed}
         handlePress={handlePress}
+        toggleTheme={saveLocal}
       />
     </>
   )

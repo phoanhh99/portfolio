@@ -9,7 +9,7 @@ export default function Homepage() {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>Welcome page</title>
       </Head>
       <div className='flex flex-col items-center justify-center min-h-screen py-2'>
         <section className='py-20'>

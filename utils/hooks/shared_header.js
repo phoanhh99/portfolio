@@ -13,13 +13,13 @@ function useAnimation() {
         ? setState(prev => {
             return {
               ...prev,
-              darkMode: 'animate-pulse ',
+              darkMode: 'animate-pulse',
             }
           })
         : setState(prev => {
             return {
               ...prev,
-              lightMode: 'animate-pulse ',
+              lightMode: 'animate-pulse',
             }
           })
       : setState(prev => {
@@ -27,7 +27,6 @@ function useAnimation() {
             ...prev,
             lightMode: '',
             darkMode: '',
-            style: {},
           }
         })
 
@@ -50,48 +49,29 @@ function useAnimation() {
 }
 
 function useTheme() {
-  const [state, setState] = useState({
-    theme: true, //Change it to null will make the switch not trigger
-    isMounted: false,
-  })
+  const [theme, setTheme] = useState(true)
 
-  const preventHydration = () => {
-    setState(prevState => {
-      return {
-        ...prevState,
-        isMounted: true,
-      }
-    })
-  }
   const saveLocal = v => {
     localStorage.setItem('theme', v)
-    setState(prev => {
-      return {
-        ...prev,
-        theme: v,
-      }
-    })
+    return setTheme(v)
   }
   useEffect(() => {
     const saved = localStorage.getItem('theme') // Check if existed
-    const value = !!saved ? JSON.parse(saved) : undefined
-    setState(prev => {
-      return {
-        ...prev,
-        theme: value,
-      }
-    })
+    const value = !!saved ? JSON.parse(saved) : true
+    return setTheme(value)
   }, [])
 
-  useEffect(() => {
-    !state.theme
-      ? (document.documentElement.setAttribute('data-theme', 'fantasy'),
-        localStorage.setItem('theme', false))
-      : (document.documentElement.setAttribute('data-theme', 'halloween'),
-        localStorage.setItem('theme', true))
-  }, [state.theme]) //Add state.isMounted so that event handler will triggered properly
+  useEffect(
+    () =>
+      !theme
+        ? (document.documentElement.setAttribute('data-theme', 'fantasy'),
+          localStorage.setItem('theme', false))
+        : (document.documentElement.setAttribute('data-theme', 'halloween'),
+          localStorage.setItem('theme', true)),
+    [theme]
+  )
 
-  return {state, saveLocal, preventHydration}
+  return {theme, saveLocal}
 }
 
 export {useAnimation, useTheme}
