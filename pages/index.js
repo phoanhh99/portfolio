@@ -4,8 +4,11 @@ import React from 'react'
 import 'styles/modules/customFont.module.css'
 import {SocialIcon} from 'react-social-icons'
 import classNames from 'classnames'
+import styles from 'styles/modules/svgColor.module.css'
+
 export default function Homepage(props) {
   const {theme} = props
+
   return (
     <>
       <Head>
@@ -68,33 +71,58 @@ export default function Homepage(props) {
       </section>
       <section id='#skill' className='py-20 bg-transparent'>
         <div className='container max-w-6xl mx-auto'>
-          <h2 className='text-4xl font-bold tracking-tight text-center'>
-            My skill stack
+          <h2 className='text-4xl font-bold tracking-tight text-center flex flex-row flex-nowrap justify-center place-items-center'>
+            My stack{' '}
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className={classNames('h-11 w-11', styles['fill--teal'])}
+              viewBox='0 0 20 20'
+            >
+              <path d='M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z' />
+            </svg>
           </h2>
-          <div className='grid grid-cols-4 gap-4 mt-10 sm:grid-cols-8 sm:gap-6 lg:grid-cols-12 lg:gap-10 sm:px-8 xl:px-0'>
-            <div className='relative flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4 overflow-hidden bg-gray-100 rounded-lg'>
-              <div
-                className={classNames(
-                  'p-3 rounded-lg',
-                  theme
-                    ? 'text-gray-100 bg-purple-600 '
-                    : 'text-purple-600 bg-text-gray-100 '
-                )}
-              >
-                <Image
-                  src='/images/misc/javascript-logo-svgrepo-com.svg'
-                  alt='javascript-logo'
-                  width={40}
-                  height={40}
-                />
-              </div>
-              <h4 className='text-xl font-medium text-gray-700'>
-                Certifications
-              </h4>
-              <p className='text-base text-center text-gray-500'>
-                Each of our plan will provide you and your team with
-                certifications.
-              </p>
+          <div className='grid grid-cols-4 gap-4 m-10 sm:grid-cols-8 sm:gap-6 lg:grid-cols-12 lg:gap-10 sm:px-8 xl:px-0'>
+            <div
+              className={classNames(
+                'relative flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4 overflow-hidden rounded-lg',
+                theme
+                  ? ' bg-gray-600 text-pink-100'
+                  : ' bg-purple-500 text-pink-100'
+              )}
+            >
+              <Image
+                src='/images/misc/javascript-logo-svgrepo-com.svg'
+                alt='javascript-logo'
+                width={40}
+                height={40}
+              />
+              <h2 className='text-xl font-bold'>Javascript</h2>
+              <p className=''>I have enough knowledge writing code in</p>
+              <ul className='list-disc'>
+                <li>Vanilla JS</li>
+                <li>React JS</li>
+              </ul>
+            </div>
+            <div
+              className={classNames(
+                'relative flex flex-col items-center justify-between col-span-4 px-8 py-12 space-y-4 overflow-hidden rounded-lg',
+                theme
+                  ? ' bg-gray-600 text-pink-100'
+                  : ' bg-pink-600 text-pink-100'
+              )}
+            >
+              <Image
+                src='/images/misc/javascript-logo-svgrepo-com.svg'
+                alt='javascript-logo'
+                width={40}
+                height={40}
+              />
+              <h2 className='text-xl font-bold'>Javascript</h2>
+              <p className=''>I have enough knowledge writing code in</p>
+              <ul className='list-disc'>
+                <li>Vanilla JS</li>
+                <li>React JS</li>
+              </ul>
             </div>
           </div>
         </div>
