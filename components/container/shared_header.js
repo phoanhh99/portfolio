@@ -1,18 +1,20 @@
 import {SunIcon, MoonIcon, LoginIcon, MenuIcon} from '@heroicons/react/outline'
 import cn from 'classnames'
-import {useAnimation, useTheme} from 'utils/hooks/shared_header'
+
 import React, {useEffect, useState} from 'react'
 import SharedSideBar from '~/components/container/shared_sidebar'
 
-export default function SharedHeader() {
+export default function SharedHeader(props) {
   const [mount, setMount] = useState(false)
   const {
-    state: {lightMode, darkMode, isPressed},
+    lightMode,
+    darkMode,
+    isPressed,
     handleAnimation,
     handlePress,
-  } = useAnimation()
-
-  const {theme, saveLocal} = useTheme()
+    theme,
+    saveLocal,
+  } = props
   useEffect(() => setMount(true), [])
   if (!mount) return null
 
