@@ -38,13 +38,16 @@ export default function SharedSideBar(props) {
     <>
       <div
         className={classNames(
-          'fixed z-30 inset-y-0 right-0 transform translate-x-full flex flex-col flex-none h-screen p-1 overflow-y-auto overscroll-contain  text-yellow-500 w-1/2 md:w-1/3 lg:w-1/5 transition duration-500 ease-bounce-in-out',
+          'fixed z-30 inset-y-0 right-0 h-full transform translate-x-full flex flex-col flex-none p-1 overflow-y-auto overscroll-contain  text-yellow-500 w-1/2 md:w-1/3 lg:w-1/5 transition duration-500 ease-bounce-in-out',
           theme ? 'bg-black' : 'bg-gray-200',
           isPressed && 'shadow-side--left transform translate-x-1'
         )}
       >
         <button
-          className='btn btn-circle btn-sm sm:btn-md xl:btn-lg btn-ghost self-end'
+          className={classNames(
+            'btn btn-circle btn-sm sm:btn-md xl:btn-lg btn-ghost self-end',
+            theme ? ' text-gray-200' : 'text-black'
+          )}
           onClick={() => handlePress()}
         >
           <XIcon className={classNames('mx-1 h-8 w-8')} />

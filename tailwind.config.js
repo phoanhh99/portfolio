@@ -19,6 +19,9 @@ module.exports = {
       transitionTimingFunction: {
         'bounce-in-out': 'cubic-bezier(.59,-0.06,.37,1.03)',
       },
+      backgroundImage: {
+        'hero-background': `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/ava/gallery1.jpg')`,
+      },
     },
   },
 }
