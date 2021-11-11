@@ -1,21 +1,16 @@
 import SharedFooter from '../container/shared_footer'
 import SharedHeader from '../container/shared_header'
-import React, {useEffect, useState} from 'react'
 
-export default function Layout(props) {
+import useTheme from '~/utils/hooks/useTheme'
+import useAnimation from '~/utils/hooks/useAnimation'
+import useOpenSidebar from '~/utils/hooks/useOpenSidebar'
+export default function Layout({children}) {
+  const {theme, saveLocal} = useTheme()
   const {
-    children,
-    lightMode,
-    darkMode,
-    isPressed,
+    state: {lightMode, darkMode},
     handleAnimation,
-    handlePress,
-    theme,
-    saveLocal,
-  } = props
-  const [mount, setMount] = useState(false)
-  useEffect(() => setMount(true), [])
-  if (!mount) return null
+  } = useAnimation()
+  const {isPressed, openIt, closeIt} = useOpenSidebar()
   return (
     <>
       <SharedHeader
@@ -23,7 +18,8 @@ export default function Layout(props) {
         darkMode={darkMode}
         isPressed={isPressed}
         handleAnimation={handleAnimation}
-        handlePress={handlePress}
+        openIt={openIt}
+        closeIt={closeIt}
         theme={theme}
         saveLocal={saveLocal}
       />
