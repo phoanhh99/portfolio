@@ -7,7 +7,7 @@ function useTheme() {
       window.matchMedia &&
       window.matchMedia(matchDark).matches
   ) // set default to user media
-  console.log(`${theme ? 'using dark mode' : 'using light mode'}`)
+
   const saveLocal = v => {
     localStorage.setItem('theme', v)
     return setTheme(v)
@@ -31,4 +31,4 @@ function useTheme() {
   return {theme, saveLocal}
 }
 
-export {useTheme}
+export default useTheme

@@ -4,11 +4,7 @@ export default function useEventHandlers(eventName, callBack) {
   const elem = window
   //Create a ref that stored handler
   const savedHandler = useRef()
-
-  useEffect(() => {
-    savedHandler.current = callBack
-  }, [callBack])
-
+  savedHandler.current = callBack
   useEffect(() => {
     //make sure elem supports addEventListener
     const isSupported = elem && elem.addEventListener
@@ -21,5 +17,5 @@ export default function useEventHandlers(eventName, callBack) {
 
       return () => elem.removeEventListener(eventName, eventListener)
     }
-  }, [elem, eventName])
+  }, [elem, eventName, callBack])
 }
