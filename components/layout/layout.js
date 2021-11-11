@@ -1,6 +1,6 @@
 import SharedFooter from '../container/shared_footer'
 import SharedHeader from '../container/shared_header'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 export default function Layout(props) {
   const {
@@ -13,6 +13,9 @@ export default function Layout(props) {
     theme,
     saveLocal,
   } = props
+  const [mount, setMount] = useState(false)
+  useEffect(() => setMount(true), [])
+  if (!mount) return null
   return (
     <>
       <SharedHeader

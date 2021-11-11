@@ -1,8 +1,13 @@
 import {useEffect, useState} from 'react'
-
+const matchDark = `(preferes-color-scheme: dark)`
 function useTheme() {
-  const [theme, setTheme] = useState(true)
-
+  const [theme, setTheme] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia(matchDark).matches
+  ) // set default to user media
+  console.log(`${theme ? 'using dark mode' : 'using light mode'}`)
   const saveLocal = v => {
     localStorage.setItem('theme', v)
     return setTheme(v)

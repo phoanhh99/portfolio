@@ -22,7 +22,16 @@ function MyApp({Component, pageProps}) {
       theme={theme}
       saveLocal={saveLocal}
     >
-      <Component {...pageProps} />
+      <Component
+        {...pageProps}
+        lightMode={lightMode}
+        darkMode={darkMode}
+        isPressed={isPressed}
+        handleAnimation={handleAnimation}
+        handlePress={handlePress}
+        theme={theme}
+        saveLocal={saveLocal}
+      />
     </Layout>
   )
 }
