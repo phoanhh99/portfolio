@@ -9,7 +9,8 @@ export default function SharedHeader(props) {
     darkMode,
     isPressed,
     handleAnimation,
-    handlePress,
+    closeIt,
+    openIt,
     theme,
     saveLocal,
   } = props
@@ -42,9 +43,9 @@ export default function SharedHeader(props) {
           <div className='flex flex-none lg:hidden '>
             <button
               className='btn btn-square btn-sm sm:btn-md lg:btn-md btn-ghost'
-              onClick={() => handlePress()}
+              onClick={() => openIt()}
             >
-              <MenuIcon className='mx-1' />
+              <MenuIcon className='mx-1 pointer-events-none' />
             </button>
           </div>
           <div className='flex-none hidden lg:inline-flex'>
@@ -79,10 +80,11 @@ export default function SharedHeader(props) {
           </div>
         </div>
       </div>
+
       <SharedSideBar
         theme={theme}
         isPressed={isPressed}
-        handlePress={handlePress}
+        closeIt={closeIt}
         toggleTheme={saveLocal}
       />
     </>

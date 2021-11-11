@@ -3,7 +3,6 @@ function useAnimation() {
   const [state, setState] = useState({
     lightMode: '',
     darkMode: '',
-    isPressed: false,
   })
 
   //Actions
@@ -29,22 +28,6 @@ function useAnimation() {
             darkMode: '',
           }
         })
-
-  const handlePress = () =>
-    state.isPressed
-      ? setState(prevState => {
-          return {
-            ...prevState,
-            isPressed: false,
-          }
-        })
-      : setState(prevState => {
-          return {
-            ...prevState,
-            isPressed: true,
-          }
-        })
-
-  return {state, handleAnimation, handlePress}
+  return {state, handleAnimation}
 }
-export {useAnimation}
+export default useAnimation
