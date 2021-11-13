@@ -2,7 +2,7 @@ import {SunIcon, MoonIcon, LoginIcon, MenuIcon} from '@heroicons/react/outline'
 import cn from 'classnames'
 import React from 'react'
 import SharedSideBar from '~/components/container/shared_sidebar'
-
+import Link from 'next/link'
 export default function SharedHeader(props) {
   const {
     lightMode,
@@ -35,8 +35,12 @@ export default function SharedHeader(props) {
           </div>
           <div className='flex-auto px-2 mx-2'>
             <div className='items-stretch hidden lg:flex'>
-              <a className='btn btn-ghost btn-sm rounded-btn'>Homepage</a>
-              <a className='btn btn-ghost btn-sm rounded-btn'>Skillstack</a>
+              <Link href='/' scroll>
+                <a className='btn btn-ghost btn-sm rounded-btn'>Homepage</a>
+              </Link>
+              <Link as='/skill' href='/SkillStack' scroll>
+                <a className='btn btn-ghost btn-sm rounded-btn'>Skillstack</a>
+              </Link>
               <a className='btn btn-ghost btn-sm rounded-btn'>My CV</a>
             </div>
           </div>

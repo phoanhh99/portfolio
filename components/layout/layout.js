@@ -1,16 +1,19 @@
 import SharedFooter from '../container/shared_footer'
 import SharedHeader from '../container/shared_header'
 
-import useTheme from '~/utils/hooks/useTheme'
-import useAnimation from '~/utils/hooks/useAnimation'
-import useOpenSidebar from '~/utils/hooks/useOpenSidebar'
-export default function Layout({children}) {
-  const {theme, saveLocal} = useTheme()
+export default function Layout(props) {
   const {
-    state: {lightMode, darkMode},
+    children,
+    lightMode,
+    darkMode,
+    isPressed,
     handleAnimation,
-  } = useAnimation()
-  const {isPressed, openIt, closeIt} = useOpenSidebar()
+    openIt,
+    closeIt,
+    theme,
+    saveLocal,
+  } = props
+
   return (
     <>
       <SharedHeader
