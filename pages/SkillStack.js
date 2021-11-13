@@ -1,8 +1,12 @@
 import Image from 'next/image'
+import Head from 'next/head'
 import classNames from 'classnames'
 export default function skillStack({theme}) {
   return (
     <>
+      <Head>
+        <title>My skill</title>
+      </Head>
       <section id='skill' className='py-20 bg-transparent'>
         <div className='container max-w-6xl mx-auto'>
           <h2 className='text-4xl font-bold tracking-tight text-center flex flex-row flex-nowrap justify-center place-items-center'>

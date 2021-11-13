@@ -23,5 +23,11 @@ module.exports = {
         'hero-background': `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/ava/gallery1.jpg')`,
       },
     },
+    gradientColorStops: theme => ({
+      ...theme('colors'),
+      gura: '#355c7d',
+      ina: '#6C5B7B',
+      calliope: '#C06C84',
+    }),
   },
 }

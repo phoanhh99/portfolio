@@ -38,7 +38,7 @@ export default function SharedHeader(props) {
               <Link href='/' scroll>
                 <a className='btn btn-ghost btn-sm rounded-btn'>Homepage</a>
               </Link>
-              <Link as='/skill' href='/SkillStack' scroll>
+              <Link href='/skillStack' scroll>
                 <a className='btn btn-ghost btn-sm rounded-btn'>Skillstack</a>
               </Link>
               <a className='btn btn-ghost btn-sm rounded-btn'>My CV</a>
