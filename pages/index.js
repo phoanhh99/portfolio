@@ -13,14 +13,19 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import getAge from '~/utils/misc/getAge'
+import VtuberList from '~/components/layout/vtuberList'
 export default function Homepage({theme}) {
   const age = getAge()
+
   return (
     <>
       <Head>
         <title>Welcome page</title>
       </Head>
-      <section id='top' className='flex flex-col items-center justify-center'>
+      <section
+        id='top'
+        className='flex flex-col items-center justify-center  pb-10'
+      >
         <div className='w-full mx-auto py-2 bg-transparent'>
           <div className='flex justify-center h-screen min-w-full bg-hero-background bg-cover bg-no-repeat bg-origin-border bg-local lg:bg-center md:bg-bottom '>
             <div className='text-md text-center hero-content text-gray-100'>
@@ -75,8 +80,9 @@ export default function Homepage({theme}) {
           </div>
         </div>
       </section>
+      <div className='divider'></div>
       <section
-        className='flex flex-1 items-center justify-center py-14'
+        className='flex flex-1 items-center justify-center py-10 '
         id='about'
       >
         <div className='p-10'>
@@ -86,12 +92,13 @@ export default function Homepage({theme}) {
             </h1>
             <div
               className={classNames(
-                'flex flex-col flex-none items-center justify-center xl:flex-row-reverse xl:items-stretch pt-5 transition duration-500 ease-in-out',
+                'flex flex-col flex-none items-center justify-center xl:flex-row-reverse xl:items-stretch pt-5 rounded-md transition duration-500 ease-in-out',
                 theme ? 'bg-gray-600' : 'bg-gray-50'
               )}
             >
-              <figure className='rounded-lg xl:rounded-r-lg xl:rounded-l-none shadow-md flex items-center'>
+              <figure>
                 <Image
+                  className='rounded-lg xl:rounded-r-lg xl:rounded-l-none shadow-md '
                   src={profilePic}
                   alt='aboutme-1'
                   quality={100}
@@ -110,59 +117,94 @@ export default function Homepage({theme}) {
                     id='para-first'
                     className='text-lg md:text-xl xl:text-2xl'
                   >
-                    Firstly let me greet you again for visiting my Portfolio
-                    where you can see my stuff and ...well, non-related others
-                    stuff. A little bit about myself, my name is{' '}
+                    Firstly let me greet you again for visiting my{' '}
+                    <span className='bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-pink-500'>
+                      Portfolio{' '}
+                    </span>
+                    where you can see my bios and ...well, non-related other
+                    stuff.
+                    <br />A little bit about myself, my name is{' '}
                     <span className='italic text-xl md:text-2xl xl:text-3xl'>
                       Nguyen Phuc Hoang Anh
                     </span>{' '}
                     or Hoang for short,{' '}
-                    <span className='italic text-xl md:text-2xl xl:text-3xl'>
-                      Charles{' '}
-                    </span>
-                    if you will. My birthday is 08/12/1998 so which means i
-                    &rsquo;m
-                    <span className='underline font-bold'> {age}</span> years
-                    old now. When it comes to hobbies and interested this are
-                    the list :
-                    <ul className='list-disc list-inside'>
-                      <li>
+                    <span
+                      className='italic font-bold underline text-xl md:text-2xl xl:text-3xl tooltip'
+                      data-tip='Mr.Hammond used to called me by this nickname when we&rsquo;re learning english'
+                    >
+                      Charles
+                    </span>{' '}
+                    if you will.
+                    <br />I was born in 08/12/1998 so which means i&rsquo;m{' '}
+                    <span className='italic font-bold'>{age}</span> years old.
+                    As for now web developing is my main job in{' '}
+                    <a
+                      className='link-primary font-bold'
+                      href='https://www.ifc.org/wps/wcm/connect/corp_ext_content/ifc_external_corporate_site/home'
+                    >
+                      IFC
+                    </a>{' '}
+                    but sometimes i enjoy learning new technologies and
+                    practicing them so i can be a better dev.
+                    <br />
+                    Like many other fresher devs when it comes to hobbies and
+                    interested i&rsquo;m just like everybody else:
+                    <div className='grid py-5 grid-cols-1 gap-2 items-center md:grid-cols-2 md:grid-row-2 md:gap-4'>
+                      <div
+                        className={classNames(
+                          'col-auto row-auto flex justify-between items-center rounded-md p-3  cursor-default transition-all hover:drop-shadow',
+                          theme
+                            ? 'bg-gray-200 text-gray-800 hover:bg-yellow-500 hover:text-white'
+                            : 'bg-gray-800 text-gray-100 hover:bg-green-500 hover:text-black'
+                        )}
+                      >
                         Anime <Fa icon={faTelevision}></Fa>
-                      </li>
-                      <li>
+                      </div>
+                      <div
+                        className={classNames(
+                          'col-auto row-auto flex justify-between items-center rounded-md p-3  cursor-default transition-all hover:shadow-2xl',
+                          theme
+                            ? 'bg-gray-200 text-gray-800 hover:bg-yellow-500 hover:text-white'
+                            : 'bg-gray-800 text-gray-100 hover:bg-green-500 hover:text-black'
+                        )}
+                      >
                         Coding <Fa icon={faLaptopCode}></Fa>
-                      </li>
-                      <li>
-                        Football <small>or soccer</small>{' '}
+                      </div>
+                      <div
+                        className={classNames(
+                          'col-auto row-auto flex justify-between items-center rounded-md p-3  cursor-default transition-all hover:drop-shadow',
+                          theme
+                            ? 'bg-gray-200 text-gray-800 hover:bg-yellow-500 hover:text-white'
+                            : 'bg-gray-800 text-gray-100 hover:bg-green-500 hover:text-black'
+                        )}
+                      >
+                        Football
                         <Fa icon={faFutbol}></Fa>
-                      </li>
-                      <li>
-                        Listening to music ~ <Fa icon={faHeadphonesSimple}></Fa>
-                      </li>
-                    </ul>
-                  </div>
-                  <div id='para-second'>
-                    <figure>
-                      <blockquote>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Laborum amet odio accusantium delectus omnis totam
-                        aliquid sunt explicabo molestiae modi suscipit eos sit
-                        unde, veritatis blanditiis qui sint nisi odit nemo
-                        dolores cumque accusamus minus quibusdam vitae. Saepe
-                        magnam ratione quo perspiciatis illo distinctio a rem
-                        enim omnis error autem tempore, sint explicabo odit
-                        labore, odio rerum accusantium, id tempora. Quidem
-                        veritatis dolores laudantium ratione nulla labore maxime
-                        accusantium, exercitationem a suscipit, consequatur
-                        ullam quibusdam cum ducimus unde possimus quia iste
-                        obcaecati saepe in similique aut officiis laborum.
-                        Adipisci molestiae dolor numquam accusantium eum
-                        explicabo quod quis at earum minus!
-                        <figcaption>
-                          &mdash; Jeremy Keith, <cite>Mental models</cite>
-                        </figcaption>
-                      </blockquote>
-                    </figure>
+                      </div>
+                      <div
+                        className={classNames(
+                          'col-auto row-auto flex justify-between items-center rounded-md p-3  cursor-default transition-all hover:drop-shadow',
+                          theme
+                            ? 'bg-gray-200 text-gray-800 hover:bg-yellow-500 hover:text-white'
+                            : 'bg-gray-800 text-gray-100 hover:bg-green-500 hover:text-black'
+                        )}
+                      >
+                        Listening to music <Fa icon={faHeadphonesSimple}></Fa>
+                      </div>
+                    </div>
+                    and also i am huge fan of vtuber - kinda like Youtuber but
+                    with anime avatar{' '}
+                    <a
+                      className='link-primary'
+                      target='_blank'
+                      href='https://virtualyoutuber.fandom.com/wiki/Virtual_YouTuber_Wiki'
+                      rel='noreferrer'
+                    >
+                      click this to know more about it
+                    </a>
+                    <br />
+                    These are some of my favorite vtubers:
+                    <VtuberList />
                   </div>
                 </div>
               </div>
