@@ -24,8 +24,8 @@ export default function SharedHeader(props) {
 
   return (
     <>
-      <div className='flex flex-col sticky top-0 w-full z-10'>
-        <div className='navbar mb-2 bg-base-200 shadow-md'>
+      <div className='flex flex-col sticky top-0 shadow-2xl w-full z-10 h-20'>
+        <div className='navbar mb-2 bg-base-100 h-full'>
           <div className='flex-none px-2 mx-2'>
             <h4 className='text-3xl lg:text-2xl font-bold'>
               <span className='bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-pink-500 '>

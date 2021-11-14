@@ -11,6 +11,7 @@ const nextConfig = {
       'images.unsplash.com',
       'static.wikia.nocookie.net',
       'user-images.strikinglycdn.com',
+      'images.microcms-assets.io',
     ],
   },
 }
