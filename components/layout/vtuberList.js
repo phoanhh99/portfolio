@@ -1,13 +1,11 @@
 import Image from 'next/image'
 import classNames from 'classnames'
-import React, {useState, useRef, useEffect, useMemo} from 'react'
+import React, {useRef, useEffect, useMemo} from 'react'
 import useOpenInformation from '~/utils/hooks/useOpenInformation'
 import MyDialog from '~/components/layout/modal'
-export default function VtuberList() {
-  const [isShow, setShow] = useState({
-    whichOne: '',
-    status: false,
-  })
+import useMouseHover from '~/utils/hooks/useMouseHover'
+export default function VtuberList(props) {
+  const {theme} = props
   const imgRef = useRef([])
   useEffect(() => {
     imgRef.current = imgRef.current.slice(0, arr.length)
@@ -132,22 +130,11 @@ export default function VtuberList() {
     ],
     []
   )
-
-  const handleEvent = ({currentTarget}) =>
-    currentTarget && imgRef.current.includes(currentTarget)
-      ? setShow(prev => {
-          return {
-            whichOne: currentTarget,
-            status: !prev.status,
-          }
-        })
-      : setShow(prev => {
-          return {
-            whichOne: null,
-            status: !prev.status,
-          }
-        })
-
+  const {
+    isShow: {status, whichOne},
+    handleEventIn,
+    handleEventOut,
+  } = useMouseHover(imgRef)
   const {
     target: {isOpenModal, content},
     openInformation,
@@ -156,12 +143,12 @@ export default function VtuberList() {
 
   return (
     <>
-      <div className='grid py-5 grid-cols-1 gap-10 items-center md:grid-cols-2 md:grid-row-2 md:gap-8 lg:grid-cols-3 lg:gap-10 '>
+      <div className='grid py-5 grid-cols-1 gap-10 items-center md:grid-cols-2 md:grid-row-2 md:gap-6 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4 xl:gap-10'>
         {arr.map(({name, alt, imgSrc}, i) => (
           <div
             className='relative col-auto h-full w-full  bg-center bg-no-repeat cursor-pointer border-primary border-2 border-solid border-opacity-25 '
-            onMouseEnter={handleEvent}
-            onMouseLeave={handleEvent}
+            onMouseEnter={handleEventIn}
+            onMouseLeave={handleEventOut}
             onClick={e =>
               openInformation(e, {
                 image: imgSrc,
@@ -184,7 +171,7 @@ export default function VtuberList() {
             <div
               className={classNames(
                 'absolute flex items-center justify-center bottom-0 left-0 font-bold text-3xl md:text-2xl lg:text-xl text-white bg-black h-1/4 lg:h-1/3 w-full bg-opacity-60 transition duration-300 ease-linear',
-                isShow.status && isShow.whichOne === imgRef.current[i]
+                status && whichOne === imgRef.current[i]
                   ? 'opacity-100'
                   : 'opacity-0'
               )}
@@ -199,6 +186,7 @@ export default function VtuberList() {
         openInformation={openInformation}
         closeInformation={closeInformation}
         content={content}
+        theme={theme}
       />
     </>
   )

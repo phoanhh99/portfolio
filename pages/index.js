@@ -3,17 +3,11 @@ import Image from 'next/image'
 import React from 'react'
 import 'styles/modules/customFont.module.css'
 import {SocialIcon} from 'react-social-icons'
-import {FontAwesomeIcon as Fa} from '@fortawesome/react-fontawesome'
 import profilePic from 'public/images/ava/gallery5.jpg'
-import {
-  faTelevision,
-  faLaptopCode,
-  faFutbol,
-  faHeadphonesSimple,
-} from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import getAge from '~/utils/misc/getAge'
 import VtuberList from '~/components/layout/vtuberList'
+import Hobbies from '~/components/layout/hobbies'
 export default function Homepage({theme}) {
   const age = getAge()
 
@@ -105,8 +99,11 @@ export default function Homepage({theme}) {
                 />
               </figure>
 
-              <div className='px-10 flex flex-1'>
-                <div id='para-first' className='text-lg md:text-xl xl:text-2xl'>
+              <div className='px-10 flex flex-1 xl:p-20'>
+                <div
+                  id='para-first'
+                  className='text-lg tracking-wide md:text-xl xl:text-2xl'
+                >
                   Firstly let me greet you again for visiting my{' '}
                   <span className='bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-pink-500'>
                     Portfolio{' '}
@@ -140,47 +137,7 @@ export default function Homepage({theme}) {
                   Like many other fresher devs when it comes to hobbies and
                   interested i&rsquo;m just like everybody else:
                   <div className='grid py-5 grid-cols-1 gap-2 items-center md:grid-cols-2 md:grid-row-2 md:gap-4'>
-                    <div
-                      className={classNames(
-                        'col-auto row-auto flex justify-between items-center rounded-md p-3  cursor-default transition-all hover:drop-shadow',
-                        theme
-                          ? 'bg-gray-200 text-gray-800 hover:bg-yellow-500 hover:text-white'
-                          : 'bg-gray-800 text-gray-100 hover:bg-green-500 hover:text-black'
-                      )}
-                    >
-                      Anime <Fa icon={faTelevision}></Fa>
-                    </div>
-                    <div
-                      className={classNames(
-                        'col-auto row-auto flex justify-between items-center rounded-md p-3  cursor-default transition-all hover:shadow-2xl',
-                        theme
-                          ? 'bg-gray-200 text-gray-800 hover:bg-yellow-500 hover:text-white'
-                          : 'bg-gray-800 text-gray-100 hover:bg-green-500 hover:text-black'
-                      )}
-                    >
-                      Coding <Fa icon={faLaptopCode}></Fa>
-                    </div>
-                    <div
-                      className={classNames(
-                        'col-auto row-auto flex justify-between items-center rounded-md p-3  cursor-default transition-all hover:drop-shadow',
-                        theme
-                          ? 'bg-gray-200 text-gray-800 hover:bg-yellow-500 hover:text-white'
-                          : 'bg-gray-800 text-gray-100 hover:bg-green-500 hover:text-black'
-                      )}
-                    >
-                      Football
-                      <Fa icon={faFutbol}></Fa>
-                    </div>
-                    <div
-                      className={classNames(
-                        'col-auto row-auto flex justify-between items-center rounded-md p-3  cursor-default transition-all hover:drop-shadow',
-                        theme
-                          ? 'bg-gray-200 text-gray-800 hover:bg-yellow-500 hover:text-white'
-                          : 'bg-gray-800 text-gray-100 hover:bg-green-500 hover:text-black'
-                      )}
-                    >
-                      Listening to music <Fa icon={faHeadphonesSimple}></Fa>
-                    </div>
+                    <Hobbies theme={theme} />
                   </div>
                   and also i am huge fan of vtuber - kinda like Youtuber but
                   with anime avatar{' '}
@@ -194,7 +151,7 @@ export default function Homepage({theme}) {
                   </a>
                   <br />
                   These are some of my favorite vtubers:
-                  <VtuberList />
+                  <VtuberList theme={theme} />
                 </div>
               </div>
             </div>

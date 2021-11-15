@@ -21,7 +21,7 @@ function useTheme() {
   useEffect(
     () =>
       !theme
-        ? (document.documentElement.setAttribute('data-theme', 'fantasy'),
+        ? (document.documentElement.setAttribute('data-theme', 'cupcake'),
           localStorage.setItem('theme', false))
         : (document.documentElement.setAttribute('data-theme', 'halloween'),
           localStorage.setItem('theme', true)),
