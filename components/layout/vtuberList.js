@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import classNames from 'classnames'
 import React, {useState, useRef, useEffect, useMemo} from 'react'
+import useOpenInformation from '~/utils/hooks/useOpenInformation'
+import MyDialog from '~/components/layout/modal'
 export default function VtuberList() {
   const [isShow, setShow] = useState({
     whichOne: '',
@@ -146,38 +148,58 @@ export default function VtuberList() {
           }
         })
 
+  const {
+    target: {isOpenModal, content},
+    openInformation,
+    closeInformation,
+  } = useOpenInformation()
+
   return (
-    <div className='grid py-5 grid-cols-1 gap-10 items-center md:grid-cols-2 md:grid-row-2 md:gap-8 lg:grid-cols-3 lg:gap-10 '>
-      {arr.map(({name, alt, imgSrc}, i) => (
-        <div
-          className='relative col-auto h-full w-full  bg-center bg-no-repeat cursor-pointer border-primary border-2 border-solid border-opacity-25 '
-          onMouseEnter={handleEvent}
-          onMouseLeave={handleEvent}
-          ref={el => (imgRef.current[i] = el)}
-          key={alt}
-        >
-          <Image
-            className='object-top object-cover'
-            alt={alt}
-            src={imgSrc}
-            width={350}
-            height={350}
-            layout='responsive'
-            quality={100}
-            loading='lazy'
-          />
+    <>
+      <div className='grid py-5 grid-cols-1 gap-10 items-center md:grid-cols-2 md:grid-row-2 md:gap-8 lg:grid-cols-3 lg:gap-10 '>
+        {arr.map(({name, alt, imgSrc}, i) => (
           <div
-            className={classNames(
-              'absolute flex items-center justify-center bottom-0 left-0 font-bold text-3xl md:text-2xl lg:text-xl text-white bg-black h-1/4 lg:h-1/3 w-full bg-opacity-60 transition duration-300 ease-linear',
-              isShow.status && isShow.whichOne === imgRef.current[i]
-                ? 'opacity-100'
-                : 'opacity-0'
-            )}
+            className='relative col-auto h-full w-full  bg-center bg-no-repeat cursor-pointer border-primary border-2 border-solid border-opacity-25 '
+            onMouseEnter={handleEvent}
+            onMouseLeave={handleEvent}
+            onClick={e =>
+              openInformation(e, {
+                image: imgSrc,
+                name: name,
+              })
+            }
+            ref={el => (imgRef.current[i] = el)}
+            key={alt}
           >
-            {name}
+            <Image
+              className='object-top object-cover'
+              alt={alt}
+              src={imgSrc}
+              width={350}
+              height={350}
+              layout='responsive'
+              quality={100}
+              loading='lazy'
+            />
+            <div
+              className={classNames(
+                'absolute flex items-center justify-center bottom-0 left-0 font-bold text-3xl md:text-2xl lg:text-xl text-white bg-black h-1/4 lg:h-1/3 w-full bg-opacity-60 transition duration-300 ease-linear',
+                isShow.status && isShow.whichOne === imgRef.current[i]
+                  ? 'opacity-100'
+                  : 'opacity-0'
+              )}
+            >
+              {name}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+      <MyDialog
+        isOpenModal={isOpenModal}
+        openInformation={openInformation}
+        closeInformation={closeInformation}
+        content={content}
+      />
+    </>
   )
 }
