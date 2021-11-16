@@ -1,19 +1,14 @@
+import Link from 'next/link'
+import React, {useContext} from 'react'
 import {SunIcon, MoonIcon, LoginIcon, MenuIcon} from '@heroicons/react/outline'
 import cn from 'classnames'
-import React from 'react'
 import SharedSideBar from '~/components/container/shared_sidebar'
-import Link from 'next/link'
-export default function SharedHeader(props) {
-  const {
-    lightMode,
-    darkMode,
-    isPressed,
-    handleAnimation,
-    closeIt,
-    openIt,
-    theme,
-    saveLocal,
-  } = props
+import useOpenSidebar from '~/utils/hooks/useOpenSidebar'
+import {ThemeContext} from '../layout/layout'
+
+export default function SharedHeader() {
+  const {isPressed, openIt, closeIt} = useOpenSidebar()
+  const {theme, saveLocal} = useContext(ThemeContext)
 
   const loginBtn = cn(
     theme
@@ -55,24 +50,20 @@ export default function SharedHeader(props) {
           <div className='flex-none hidden lg:inline-flex'>
             <div className='mx-1 flex-nowrap w-max flex items-center'>
               <SunIcon
-                className={cn('mx-1 h-7 w-7', lightMode)}
+                className={cn('mx-1 h-7 w-7')}
                 fill={!theme ? '#F59E0B' : 'none'}
-                onMouseEnter={() => handleAnimation('start', 'light')}
-                onMouseLeave={() => handleAnimation('stop', 'light')}
               />
               <div className='form-control'>
                 <input
                   type='checkbox'
                   className='toggle toggle-lg toggle-primary'
                   onChange={e => saveLocal(e.currentTarget.checked)}
-                  checked={!!theme}
+                  checked={theme}
                 />
               </div>
               <MoonIcon
-                className={cn('mx-1 h-7 w-7', darkMode)}
+                className={cn('mx-1 h-7 w-7')}
                 fill={theme ? '#F59E0B' : 'none'}
-                onMouseEnter={() => handleAnimation('start', 'dark')}
-                onMouseLeave={() => handleAnimation('stop', 'dark')}
               />
             </div>
             <div className='mx-1 flex-grow-0'>
