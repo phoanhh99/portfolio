@@ -1,33 +1,16 @@
 import SharedFooter from '../container/shared_footer'
 import SharedHeader from '../container/shared_header'
-
+import {createContext} from 'react'
+import useTheme from '~/utils/hooks/useTheme'
+export const ThemeContext = createContext()
 export default function Layout(props) {
-  const {
-    children,
-    lightMode,
-    darkMode,
-    isPressed,
-    handleAnimation,
-    openIt,
-    closeIt,
-    theme,
-    saveLocal,
-  } = props
+  const {children} = props
 
   return (
-    <>
-      <SharedHeader
-        lightMode={lightMode}
-        darkMode={darkMode}
-        isPressed={isPressed}
-        handleAnimation={handleAnimation}
-        openIt={openIt}
-        closeIt={closeIt}
-        theme={theme}
-        saveLocal={saveLocal}
-      />
+    <ThemeContext.Provider value={useTheme()}>
+      <SharedHeader />
       <main>{children}</main>
       <SharedFooter />
-    </>
+    </ThemeContext.Provider>
   )
 }

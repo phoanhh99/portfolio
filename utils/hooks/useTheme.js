@@ -14,8 +14,7 @@ function useTheme() {
   }
   useEffect(() => {
     const saved = localStorage.getItem('theme') // Check if existed
-    const value = !!saved ? JSON.parse(saved) : true
-    return setTheme(value)
+    saved && setTheme(JSON.parse(saved))
   }, [])
 
   useEffect(

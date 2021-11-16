@@ -1,15 +1,13 @@
 import Image from 'next/image'
 import classNames from 'classnames'
-import React, {useRef, useEffect, useMemo} from 'react'
+import React, {useRef, useEffect, useMemo, useContext} from 'react'
 import useOpenInformation from '~/utils/hooks/useOpenInformation'
 import MyDialog from '~/components/layout/modal'
 import useMouseHover from '~/utils/hooks/useMouseHover'
-export default function VtuberList(props) {
-  const {theme} = props
+import {ThemeContext} from './layout'
+export default function VtuberList() {
+  const {theme} = useContext(ThemeContext)
   const imgRef = useRef([])
-  useEffect(() => {
-    imgRef.current = imgRef.current.slice(0, arr.length)
-  }, [arr])
   //For Debugging purpose
   const arr = useMemo(
     () => [
@@ -130,6 +128,10 @@ export default function VtuberList(props) {
     ],
     []
   )
+  useEffect(() => {
+    imgRef.current = imgRef.current.slice(0, arr.length)
+  }, [arr])
+
   const {
     isShow: {status, whichOne},
     handleEventIn,
