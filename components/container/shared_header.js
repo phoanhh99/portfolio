@@ -4,16 +4,7 @@ import React from 'react'
 import SharedSideBar from '~/components/container/shared_sidebar'
 import Link from 'next/link'
 export default function SharedHeader(props) {
-  const {
-    lightMode,
-    darkMode,
-    isPressed,
-    handleAnimation,
-    closeIt,
-    openIt,
-    theme,
-    saveLocal,
-  } = props
+  const {isPressed, closeIt, openIt, theme, saveLocal} = props
 
   const loginBtn = cn(
     theme
@@ -55,10 +46,8 @@ export default function SharedHeader(props) {
           <div className='flex-none hidden lg:inline-flex'>
             <div className='mx-1 flex-nowrap w-max flex items-center'>
               <SunIcon
-                className={cn('mx-1 h-7 w-7', lightMode)}
+                className={cn('mx-1 h-7 w-7')}
                 fill={!theme ? '#F59E0B' : 'none'}
-                onMouseEnter={() => handleAnimation('start', 'light')}
-                onMouseLeave={() => handleAnimation('stop', 'light')}
               />
               <div className='form-control'>
                 <input
@@ -69,10 +58,8 @@ export default function SharedHeader(props) {
                 />
               </div>
               <MoonIcon
-                className={cn('mx-1 h-7 w-7', darkMode)}
+                className={cn('mx-1 h-7 w-7')}
                 fill={theme ? '#F59E0B' : 'none'}
-                onMouseEnter={() => handleAnimation('start', 'dark')}
-                onMouseLeave={() => handleAnimation('stop', 'dark')}
               />
             </div>
             <div className='mx-1 flex-grow-0'>

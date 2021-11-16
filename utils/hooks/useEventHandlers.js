@@ -1,11 +1,11 @@
 import {useEffect, useRef} from 'react'
 
 export default function useEventHandlers(eventName, callBack) {
-  const elem = window
   //Create a ref that stored handler
   const savedHandler = useRef()
   savedHandler.current = callBack
   useEffect(() => {
+    const elem = window
     //make sure elem supports addEventListener
     const isSupported = elem && elem.addEventListener
     if (isSupported) {
@@ -17,5 +17,5 @@ export default function useEventHandlers(eventName, callBack) {
 
       return () => elem.removeEventListener(eventName, eventListener)
     }
-  }, [elem, eventName, callBack])
+  }, [eventName, callBack])
 }
