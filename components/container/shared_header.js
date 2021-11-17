@@ -1,10 +1,20 @@
+import Link from 'next/link'
+import React, {useContext} from 'react'
 import {SunIcon, MoonIcon, LoginIcon, MenuIcon} from '@heroicons/react/outline'
 import cn from 'classnames'
-import React from 'react'
 import SharedSideBar from '~/components/container/shared_sidebar'
+<<<<<<< HEAD
 import Link from 'next/link'
 export default function SharedHeader(props) {
   const {isPressed, closeIt, openIt, theme, saveLocal} = props
+=======
+import useOpenSidebar from '~/utils/hooks/useOpenSidebar'
+import {ThemeContext} from '../layout/layout'
+
+export default function SharedHeader() {
+  const {isPressed, openIt, closeIt} = useOpenSidebar()
+  const {theme, saveLocal} = useContext(ThemeContext)
+>>>>>>> upstream/master
 
   const loginBtn = cn(
     theme
@@ -54,7 +64,7 @@ export default function SharedHeader(props) {
                   type='checkbox'
                   className='toggle toggle-lg toggle-primary'
                   onChange={e => saveLocal(e.currentTarget.checked)}
-                  checked={!!theme}
+                  checked={theme}
                 />
               </div>
               <MoonIcon

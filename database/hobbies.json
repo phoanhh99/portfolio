@@ -1,0 +1,9 @@
+[
+  {"name": "Anime", "icon": "/images/misc/tv-svgrepo-com.svg"},
+  {"name": "Coding", "icon": "/images/misc/laptop-code-svgrepo-com.svg"},
+  {"name": "Football", "icon": "/images/misc/football-svgrepo-com.svg"},
+  {
+    "name": "Listening to music",
+    "icon": "/images/misc/music-svgrepo-com.svg"
+  }
+]

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 import classNames from 'classnames'
 import Image from 'next/image'
@@ -12,13 +13,30 @@ export default function Hobbies(props) {
       icon: '/images/misc/music-svgrepo-com.svg',
     },
   ]
+=======
+import React, {useContext} from 'react'
+import classNames from 'classnames'
+import Image from 'next/image'
+
+import {ThemeContext} from './layout'
+
+function Hobbies(props) {
+  const {arr} = props
+
+  const {theme} = useContext(ThemeContext)
+
+>>>>>>> upstream/master
   return (
     <>
       {arr.map(({name, icon}) => (
         <div
           key={name}
           className={classNames(
+<<<<<<< HEAD
             'col-auto row-auto border-2 border-solid border-primary  flex justify-between items-center rounded-md p-3 cursor-default transition-all xl:p-5 hover:drop-shadow xl:justify-around xl:items-stretch',
+=======
+            'col-auto row-auto border-2 border-solid border-primary  flex justify-between items-center rounded-md p-3 cursor-default transition-all xl:p-5 hover:drop-shadow xl:justify-between xl:items-stretch',
+>>>>>>> upstream/master
             theme
               ? 'bg-transparent text-primary hover:bg-yellow-500 hover:text-white'
               : 'bg-transparent text-gray-900 hover:bg-primary hover:text-gray-200'
@@ -39,3 +57,8 @@ export default function Hobbies(props) {
     </>
   )
 }
+<<<<<<< HEAD
+=======
+
+export default Hobbies
+>>>>>>> upstream/master
