@@ -28,6 +28,7 @@ export default function useOpenInformation() {
       setTarget(prev => {
         return {
           ...prev,
+          currentRef: '',
           isOpenModal: false,
         }
       })

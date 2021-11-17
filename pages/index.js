@@ -5,21 +5,23 @@ import 'styles/modules/customFont.module.css'
 import {SocialIcon} from 'react-social-icons'
 import profilePic from 'public/images/ava/gallery5.jpg'
 import classNames from 'classnames'
-import getAge from '~/utils/helper/getAge'
+import getAge from '~/utils/helpers/getAge'
 import VtuberList from '~/components/layout/vtuberList'
 import Hobbies from '~/components/layout/hobbies'
-import {getHobbies} from '~/lib/getHobbies'
+import {getHobbies, getVtuberList} from '~/lib/controller/indexController'
 
 export const getStaticProps = async () => {
-  const arr = await getHobbies()
+  const hobbieList = await getHobbies()
+  const vtuberList = await getVtuberList()
   return {
     props: {
-      arr: arr,
+      hobbieList: hobbieList,
+      vtuberList: vtuberList,
     },
   }
 }
 export default function Homepage(props) {
-  const {arr} = props
+  const {hobbieList, vtuberList} = props
   const age = getAge()
 
   return (
@@ -148,7 +150,7 @@ export default function Homepage(props) {
                   Like many other fresher devs when it comes to hobbies and
                   interested i&rsquo;m just like everybody else:
                   <div className='grid py-5 grid-cols-1 gap-2 items-center md:grid-cols-2 md:grid-row-2 md:gap-4'>
-                    <Hobbies arr={arr} />
+                    <Hobbies arr={hobbieList} />
                   </div>
                   and also i am huge fan of vtuber - kinda like Youtuber but
                   with anime avatar{' '}
@@ -162,7 +164,7 @@ export default function Homepage(props) {
                   </a>
                   <br />
                   These are some of my favorite vtubers:
-                  <VtuberList />
+                  <VtuberList arr={vtuberList} />
                 </div>
               </div>
             </div>
