@@ -8,32 +8,35 @@ export default function MyDialog(prop) {
     closeInformation,
     content: {image, name},
     theme,
+    backdrop,
   } = prop
   return (
     <Transition appear show={isOpenModal} as={Fragment}>
       <Dialog
         as='div'
-        className='fixed inset-0 z-10 w-full h-full overflow-auto '
+        className='fixed inset-0 z-10 overflow-auto'
         onClose={closeInformation}
       >
-        <div className='flex flex-grow flex-row justify-center items-center h-full w-full bg-black bg-opacity-60'>
-          {/* <Transition.Child
-            as={Fragment}
-            enter='ease-out duration-300'
-            enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-            enterTo='opacity-100 translate-y-0 sm:scale-100'
-            leave='ease-in duration-200'
-            leaveFrom='opacity-100 translate-y-0 sm:scale-100'
-            leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-          >
-            <Dialog.Overlay className='flex  h-full w-full' />
-          </Transition.Child> */}
+        <div className='min-h-screen px-4 text-center bg-black bg-opacity-50'>
+          {backdrop && (
+            <Transition.Child
+              as={Fragment}
+              enter='ease-out duration-300'
+              enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+              enterTo='opacity-100 translate-y-0 sm:scale-100'
+              leave='ease-in duration-200'
+              leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+              leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+            >
+              <Dialog.Overlay className='fixed inset-0' />
+            </Transition.Child>
+          )}
 
           {/* This element is to trick the browser into centering the modal contents. */}
-          {/* <span
+          <span
             className='hidden sm:inline-block sm:align-middle sm:h-screen'
             aria-hidden='true'
-          ></span> */}
+          ></span>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -46,7 +49,7 @@ export default function MyDialog(prop) {
             <div
               className={classNames(
                 theme ? 'bg-gray-900' : 'bg-gray-100',
-                'flex flex-col w-3/4  overflow-hidden transition-all md:flex-none sm:w-1/2 md:w-2/5 lg:1/4'
+                'inline-block w-full max-w-md overflow-hidden transition-all transform rounded-2xl'
               )}
             >
               <div className='px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>

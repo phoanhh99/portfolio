@@ -9,14 +9,20 @@ import getAge from '~/utils/helpers/getAge'
 import VtuberList from '~/components/layout/vtuberList'
 import Hobbies from '~/components/layout/hobbies'
 import {getHobbies, getVtuberList} from '~/lib/controller/indexController'
+import {getPlaiceholder} from 'plaiceholder'
 
 export const getStaticProps = async () => {
   const hobbieList = await getHobbies()
-  const vtuberList = await getVtuberList()
+  const content = await getVtuberList()
+  for (const obj of content) {
+    const {imgSrc} = obj
+    const {base64} = await getPlaiceholder(imgSrc)
+    obj['base64BlurSrc'] = base64
+  }
   return {
     props: {
       hobbieList: hobbieList,
-      vtuberList: vtuberList,
+      vtuberList: content,
     },
   }
 }

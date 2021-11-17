@@ -1,12 +1,6 @@
 import {useEffect, useState} from 'react'
-const matchDark = `(preferes-color-scheme: dark)`
 function useTheme() {
-  const [theme, setTheme] = useState(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia &&
-      window.matchMedia(matchDark).matches
-  ) // set default to user media
+  const [theme, setTheme] = useState(true) // set default to user media
 
   const saveLocal = v => {
     localStorage.setItem('theme', v)
@@ -14,9 +8,13 @@ function useTheme() {
   }
   useEffect(() => {
     const saved = localStorage.getItem('theme') // Check if existed
-    saved && setTheme(JSON.parse(saved))
+    saved
+      ? setTheme(JSON.parse(saved))
+      : setTheme(
+          window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches
+        )
   }, [])
-
   useEffect(
     () =>
       !theme

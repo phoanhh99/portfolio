@@ -28,7 +28,7 @@ export default function VtuberList(props) {
   return (
     <>
       <div className='grid py-5 grid-cols-1 gap-10 items-center md:grid-cols-2 md:grid-row-2 md:gap-6 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4 xl:gap-10'>
-        {arr.map(({name, alt, imgSrc}, i) => (
+        {arr.map(({name, alt, imgSrc, base64BlurSrc}, i) => (
           <div
             className='relative col-auto h-full w-full  bg-center bg-no-repeat cursor-pointer border-primary border-2 border-solid border-opacity-25 '
             onMouseEnter={handleEventIn}
@@ -51,8 +51,8 @@ export default function VtuberList(props) {
               layout='responsive'
               quality={100}
               priority
-              // placeholder='blur'
-              // blurDataURL=''
+              placeholder='blur'
+              blurDataURL={base64BlurSrc}
             />
             <div
               className={classNames(

@@ -1,7 +1,8 @@
 /**
  * @type {import('next').NextConfig}
  */
-const nextConfig = {
+const {withPlaiceholder} = require('@plaiceholder/next')
+const nextConfig = withPlaiceholder({
   /* config options here */
   reactStrictMode: true,
   images: {
@@ -14,7 +15,6 @@ const nextConfig = {
       'images.microcms-assets.io',
     ],
   },
-  webpack5: true,
   webpack: config => {
     config.resolve.fallback = {
       fs: false,
@@ -22,6 +22,6 @@ const nextConfig = {
     }
     return config
   },
-}
+})
 
 module.exports = nextConfig
