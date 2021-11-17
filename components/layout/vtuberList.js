@@ -1,40 +1,5 @@
 import Image from 'next/image'
 import classNames from 'classnames'
-<<<<<<< HEAD
-import React, {useRef} from 'react'
-import useOpenInformation from '~/utils/hooks/useOpenInformation'
-import MyDialog from '~/components/layout/modal'
-import useMouseHover from '~/utils/hooks/useMouseHover'
-import {getVtuberList} from '~/lib/getVtuberList'
-
-export async function getStaticProps(context) {
-  const {
-    params: {id},
-    preview,
-    previewData,
-    locale,
-    locales,
-    defaultLocale,
-  } = context
-  console.log(
-    `ID: ${id}\n\t preview: ${preview}\n\t previewData: ${previewData}\n\t locale: ${locale}\n\t locales: ${locales}\n\t defaultLocale: ${defaultLocale}`
-  )
-  const datas = await getVtuberList()
-  return {
-    props: {
-      arr: datas,
-    },
-  }
-}
-
-export default function VtuberList(props) {
-  const {theme, arr} = props
-  const imgRef = useRef([])
-  // useEffect(() => {
-  //   imgRef.current = imgRef.current.slice(0, arr.length)
-  // }, [arr])
-
-=======
 import React, {useRef, useEffect, useMemo, useContext} from 'react'
 import useOpenInformation from '~/utils/hooks/useOpenInformation'
 import MyDialog from '~/components/layout/modal'
@@ -172,7 +137,6 @@ export default function VtuberList() {
     handleEventIn,
     handleEventOut,
   } = useMouseHover(imgRef)
->>>>>>> upstream/master
   const {
     isShow: {status, whichOne},
     handleEventIn,
