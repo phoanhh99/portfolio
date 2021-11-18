@@ -10,7 +10,7 @@ function Hobbies(props) {
   const {theme} = useContext(ThemeContext)
 
   return (
-    <>
+    <div className='grid py-5 grid-cols-1 gap-2 items-center md:grid-cols-2 md:grid-row-2 md:gap-4'>
       {arr.map(({name, icon}) => (
         <div
           key={name}
@@ -33,7 +33,7 @@ function Hobbies(props) {
           </span>
         </div>
       ))}
-    </>
+    </div>
   )
 }
 export default Hobbies
