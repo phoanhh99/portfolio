@@ -9,16 +9,10 @@ import getAge from '~/utils/helpers/getAge'
 import VtuberList from '~/components/layout/vtuberList'
 import Hobbies from '~/components/layout/hobbies'
 import {getHobbies, getVtuberList} from '~/lib/controller/indexController'
-import {getPlaiceholder} from 'plaiceholder'
 
 export const getStaticProps = async () => {
   const hobbieList = await getHobbies()
   const content = await getVtuberList()
-  for (const obj of content) {
-    const {imgSrc} = obj
-    const {base64} = await getPlaiceholder(imgSrc)
-    obj['base64BlurSrc'] = base64
-  }
   return {
     props: {
       hobbieList: hobbieList,
@@ -155,9 +149,7 @@ export default function Homepage(props) {
                   <br />
                   Like many other fresher devs when it comes to hobbies and
                   interested i&rsquo;m just like everybody else:
-                  <div className='grid py-5 grid-cols-1 gap-2 items-center md:grid-cols-2 md:grid-row-2 md:gap-4'>
-                    <Hobbies arr={hobbieList} />
-                  </div>
+                  <Hobbies arr={hobbieList} />
                   and also i am huge fan of vtuber - kinda like Youtuber but
                   with anime avatar{' '}
                   <a

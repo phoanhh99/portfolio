@@ -28,7 +28,7 @@ export default function VtuberList(props) {
   return (
     <>
       <div className='grid py-5 grid-cols-1 gap-10 items-center md:grid-cols-2 md:grid-row-2 md:gap-6 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4 xl:gap-10'>
-        {arr.map(({name, alt, imgSrc, base64BlurSrc}, i) => (
+        {arr.map(({name, alt, imgSrc, base64BlurSrc, description, url}, i) => (
           <div
             className='relative col-auto h-full w-full  bg-center bg-no-repeat cursor-pointer border-primary border-2 border-solid border-opacity-25 '
             onMouseEnter={handleEventIn}
@@ -37,20 +37,22 @@ export default function VtuberList(props) {
               openInformation(e, {
                 image: imgSrc,
                 name: name,
+                description: description,
+                alt: alt,
+                url: url,
               })
             }
             ref={el => (imgRef.current[i] = el)}
             key={alt}
           >
             <Image
-              className='object-top object-cover'
+              className='object-top object-cover filter blur-lg transform scale-100'
               alt={alt}
               src={imgSrc}
               width={350}
               height={350}
               layout='responsive'
               quality={100}
-              priority
               placeholder='blur'
               blurDataURL={base64BlurSrc}
             />

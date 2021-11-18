@@ -1,42 +1,45 @@
-import {Dialog, Transition} from '@headlessui/react'
-import {Fragment} from 'react'
 import Image from 'next/image'
+import {Fragment, useRef} from 'react'
+import {Dialog, Transition} from '@headlessui/react'
 import classNames from 'classnames'
+import {Timeline} from 'react-twitter-widgets'
+import {ArrowLeftIcon} from '@heroicons/react/outline'
 export default function MyDialog(prop) {
   const {
     isOpenModal,
     closeInformation,
-    content: {image, name},
+    content: {image, name, description, url, alt},
     theme,
-    backdrop,
   } = prop
+  const buttonRef = useRef(null)
   return (
     <Transition appear show={isOpenModal} as={Fragment}>
       <Dialog
         as='div'
-        className='fixed inset-0 z-10 overflow-auto'
+        className='fixed inset-0 z-20 overflow-hidden'
         onClose={closeInformation}
+        initialFocus={buttonRef}
       >
-        <div className='min-h-screen px-4 text-center bg-black bg-opacity-50'>
-          {backdrop && (
-            <Transition.Child
-              as={Fragment}
-              enter='ease-out duration-300'
-              enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-              enterTo='opacity-100 translate-y-0 sm:scale-100'
-              leave='ease-in duration-200'
-              leaveFrom='opacity-100 translate-y-0 sm:scale-100'
-              leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-            >
-              <Dialog.Overlay className='fixed inset-0' />
-            </Transition.Child>
-          )}
+        <div className='min-h-screen text-center'>
+          <Transition.Child
+            as={Fragment}
+            enter='ease-out duration-300'
+            enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+            enterTo='opacity-100 translate-y-0 sm:scale-100'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+            leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+          >
+            <Dialog.Overlay className='fixed inset-0 bg-black bg-opacity-50' />
+          </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
           <span
-            className='hidden sm:inline-block sm:align-middle sm:h-screen'
+            className='inline-block h-screen align-middle'
             aria-hidden='true'
-          ></span>
+          >
+            &#8203;
+          </span>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-300'
@@ -49,53 +52,65 @@ export default function MyDialog(prop) {
             <div
               className={classNames(
                 theme ? 'bg-gray-900' : 'bg-gray-100',
-                'inline-block w-full max-w-md overflow-hidden transition-all transform rounded-2xl'
+                'relative inline-block text-left h-screen w-full overflow-auto transition-all'
               )}
             >
-              <div className='px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
-                <div className='flex sm:items-start'>
-                  <div className='mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left'>
-                    <Dialog.Title
-                      as='h3'
-                      className={
-                        (classNames(
-                          theme ? 'text-yellow-500' : 'text-gray-800'
-                        ),
-                        'text-2xl font-bold')
-                      }
-                    >
-                      {name}
-                    </Dialog.Title>
+              <div className='grid grid-cols-2 gap-4 p-2'>
+                <div className='p-4 col-span-2'>
+                  <div
+                    type='button'
+                    ref={buttonRef}
+                    className={classNames(
+                      theme ? 'text-gray-200' : 'text-indigo-700',
+                      'w-32 m-3 p-3 flex flex-row flex-shrink justify-center items-center bg-transparent cursor-pointer transition-transform hover:scale-125 focus:border-2 focus:border-solid focus:border-primary'
+                    )}
+                    onClick={closeInformation}
+                  >
+                    <ArrowLeftIcon className='h-5 w-5 mr-3' />
+                    Back
                   </div>
                 </div>
-              </div>
-
-              <div className='p-2'>
                 <Image
                   src={image}
-                  alt={name}
+                  alt={alt}
                   width={350}
                   height={350}
-                  layout='responsive'
                   quality={100}
                   loading='lazy'
-                  className='object-contain object-center'
+                  crossOrigin='use-credentials'
+                  className='object-contain object-center col-span-2'
                 />
-              </div>
-
-              <div className='p-4 flex flex-row flex-wrap justify-end'>
-                <button
-                  type='button'
-                  className={classNames(
-                    theme
-                      ? 'text-gray-200 bg-indigo-700'
-                      : 'text-indigo-700 bg-transparent',
-                    'w-1/3 inline-flex justify-center rounded-md font-bold  px-4 py-2 lg:text-xl sm:text-2xl  shadow-sm  transition-transform hover:scale-105'
-                  )}
-                  onClick={closeInformation}
+                <div
+                  className={
+                    (classNames(theme ? 'text-yellow-500' : 'text-gray-800'),
+                    'text-2xl font-bold')
+                  }
                 >
-                  Back
-                </button>
+                  <Dialog.Title as='h3'>{name}</Dialog.Title>
+                  <Dialog.Description className='text-xl font-medium tracking-wide pt-2'>
+                    {description}
+                  </Dialog.Description>
+                </div>
+              </div>
+              <div className='divide-y divide-base-100 divide-solid'></div>
+              <div className='w-full pt-10 flex flex-col justify-center items-center'>
+                <p className='text-xl font-bold py-10'>Recent tweets </p>
+                <div className='self-stretch'>
+                  <Timeline
+                    dataSource={{
+                      sourceType: 'url',
+                      url: url,
+                    }}
+                    options={{
+                      ...(theme ? {theme: 'dark'} : {theme: 'light'}),
+                      tweetLimit: 6,
+                      ariaPolite: 'rude',
+                      chrome: 'noheader, nofooter, noborders, transparent',
+                      showReplies: true,
+                    }}
+                    renderError={() => <p>Couldn&apos;t load tweet</p>}
+                  />
+                </div>
               </div>
             </div>
           </Transition.Child>

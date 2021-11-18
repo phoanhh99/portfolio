@@ -6,7 +6,7 @@ export default function useOpenInformation() {
     content: {},
   })
   const openInformation = useCallback(
-    ({currentTarget}, {image, name}) => {
+    ({currentTarget}, {image, name, description, alt, url}) => {
       !target.currentRef &&
         setTarget(prev => {
           return {
@@ -16,6 +16,9 @@ export default function useOpenInformation() {
             content: {
               image: image,
               name: name,
+              description: description,
+              alt: alt,
+              url: url,
             },
           }
         })
