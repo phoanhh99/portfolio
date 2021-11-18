@@ -51,65 +51,87 @@ export default function MyDialog(prop) {
           >
             <div
               className={classNames(
-                theme ? 'bg-gray-900' : 'bg-gray-100',
+                theme ? 'bg-black ' : 'bg-gray-100',
                 'relative inline-block text-left h-screen w-full overflow-auto transition-all'
               )}
             >
-              <div className='grid grid-cols-2 gap-4 p-2'>
-                <div className='p-4 col-span-2'>
-                  <div
-                    type='button'
-                    ref={buttonRef}
-                    className={classNames(
-                      theme ? 'text-gray-200' : 'text-indigo-700',
-                      'w-32 m-3 p-3 flex flex-row flex-shrink justify-center items-center bg-transparent cursor-pointer transition-transform hover:scale-125 focus:border-2 focus:border-solid focus:border-primary'
-                    )}
-                    onClick={closeInformation}
-                  >
-                    <ArrowLeftIcon className='h-5 w-5 mr-3' />
-                    Back
-                  </div>
+              <div className='flex flex-row flex-grow justify-start m-5 md"mx-10 md:my-5'>
+                <div
+                  type='button'
+                  ref={buttonRef}
+                  className={classNames(
+                    theme ? 'text-gray-200' : 'text-indigo-700',
+                    'w-32 text-xl m-3 p-3 inline-flex items-center bg-transparent cursor-pointer transition-transform hover:scale-125 focus:border-2 focus:border-solid focus:border-primary'
+                  )}
+                  onClick={closeInformation}
+                >
+                  <ArrowLeftIcon className='h-5 w-5 mr-3' />
+                  Back
                 </div>
-                <Image
-                  src={image}
-                  alt={alt}
-                  width={350}
-                  height={350}
-                  quality={100}
-                  loading='lazy'
-                  crossOrigin='use-credentials'
-                  className='object-contain object-center col-span-2'
-                />
+              </div>
+              <div className='grid grid-flow-row grid-cols-1 gap-4 p-2 md:grid-cols-2 md:grid-rows-1 xl:grid-rows-2'>
+                <div className='row-span-2 m-auto'>
+                  <Image
+                    src={image}
+                    alt={alt}
+                    width={350}
+                    height={350}
+                    quality={100}
+                    loading='lazy'
+                    crossOrigin='use-credentials'
+                    className='object-contain object-center'
+                  />
+                </div>
+
                 <div
                   className={
-                    (classNames(theme ? 'text-yellow-500' : 'text-gray-800'),
-                    'text-2xl font-bold')
+                    (classNames(theme ? 'text-yellow-500' : 'text-gray-700'),
+                    'text-2xl font-bold text-left xl:row-span-2')
                   }
                 >
-                  <Dialog.Title as='h3'>{name}</Dialog.Title>
-                  <Dialog.Description className='text-xl font-medium tracking-wide pt-2'>
+                  <Dialog.Title as='h3' className='text-center'>
+                    {name}
+                  </Dialog.Title>
+                  <Dialog.Description className='text-xl font-medium tracking-wide p-2'>
                     {description}
                   </Dialog.Description>
                 </div>
               </div>
               <div className='divide-y divide-base-100 divide-solid'></div>
-              <div className='w-full pt-10 flex flex-col justify-center items-center'>
+              <div className='w-full pt-10 flex flex-col items-center'>
                 <p className='text-xl font-bold py-10'>Recent tweets </p>
-                <div className='self-stretch'>
+                <div className='self-center w-full lg:w-2/3'>
                   <Timeline
                     dataSource={{
                       sourceType: 'url',
                       url: url,
                     }}
                     options={{
-                      ...(theme ? {theme: 'dark'} : {theme: 'light'}),
-                      tweetLimit: 6,
+                      ...(theme
+                        ? {theme: 'dark', borderColor: '#A45110'}
+                        : {theme: 'light', borderColor: '#8d10a4'}),
+                      tweetLimit: 10,
                       ariaPolite: 'rude',
-                      chrome: 'noheader, nofooter, noborders, transparent',
-                      showReplies: true,
+                      chrome: 'noheader, nofooter, transparent',
+                      showReplies: false,
                     }}
                     renderError={() => <p>Couldn&apos;t load tweet</p>}
                   />
+                </div>
+              </div>
+              <div className='flex flex-row flex-grow justify-end m-5 md"mx-10 md:my-5'>
+                <div
+                  type='button'
+                  ref={buttonRef}
+                  className={classNames(
+                    theme
+                      ? 'hover:bg-white hover:text-red-500'
+                      : 'hover:bg-red-700 hover:text-white',
+                    'w-32 text-gray-200 bg-red-500 text-xl m-3 p-3 rounded-full inline-flex items-center justify-center round cursor-pointer transition duration-300 ease-linear  focus:border-2 focus:border-solid focus:border-primary'
+                  )}
+                  onClick={closeInformation}
+                >
+                  Back
                 </div>
               </div>
             </div>
