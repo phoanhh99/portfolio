@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import classNames from 'classnames'
 import Image from 'next/image'
 
-import {ThemeContext} from './layout'
+import {ThemeContext} from '../layout/layout'
 
 function Hobbies(props) {
   const {arr} = props

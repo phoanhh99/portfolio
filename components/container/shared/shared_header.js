@@ -2,9 +2,9 @@ import Link from 'next/link'
 import React, {useContext} from 'react'
 import {SunIcon, MoonIcon, LoginIcon, MenuIcon} from '@heroicons/react/outline'
 import cn from 'classnames'
-import SharedSideBar from '~/components/container/shared_sidebar'
+import SharedSideBar from '~/components/container/shared/shared_sidebar'
 import useOpenSidebar from '~/utils/hooks/useOpenSidebar'
-import {ThemeContext} from '../layout/layout'
+import {ThemeContext} from '../../layout/layout'
 
 export default function SharedHeader() {
   const {isPressed, openIt, closeIt} = useOpenSidebar()

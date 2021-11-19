@@ -1,9 +1,12 @@
 import dynamic from 'next/dynamic'
-import SharedFooter from '../container/shared_footer'
+import SharedFooter from '../container/shared/shared_footer'
 
-const SharedHeader = dynamic(() => import('../container/shared_header'), {
-  ssr: false,
-})
+const SharedHeader = dynamic(
+  () => import('../container/shared/shared_header'),
+  {
+    ssr: false,
+  }
+)
 
 import {createContext} from 'react'
 import useTheme from '~/utils/hooks/useTheme'
