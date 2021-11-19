@@ -30,9 +30,13 @@ export default function useOpenInformation() {
     target.currentRef &&
       setTarget(prev => {
         return {
-          ...prev,
           currentRef: '',
           isOpenModal: false,
+          content: {
+            ...prev.content,
+            url: '',
+            description: '',
+          },
         }
       })
   }, [target.currentRef])

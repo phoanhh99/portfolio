@@ -1,9 +1,11 @@
 import Image from 'next/image'
-import {Fragment, useRef} from 'react'
+import {Fragment, useCallback, useRef} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
 import classNames from 'classnames'
 import {Timeline} from 'react-twitter-widgets'
 import {ArrowLeftIcon} from '@heroicons/react/outline'
+
+import ScrollBtn from './scrollBtn'
 export default function MyDialog(prop) {
   const {
     isOpenModal,
@@ -12,6 +14,29 @@ export default function MyDialog(prop) {
     theme,
   } = prop
   const buttonRef = useRef(null)
+
+  const ShowTweet = useCallback(
+    () => (
+      <Timeline
+        dataSource={{
+          sourceType: 'url',
+          url: url,
+        }}
+        options={{
+          ...(theme
+            ? {theme: 'dark', borderColor: '#A45110'}
+            : {theme: 'light', borderColor: '#8d10a4'}),
+          tweetLimit: 10,
+          ariaPolite: 'rude',
+          chrome: 'noheader, nofooter, transparent',
+          showReplies: false,
+        }}
+        renderError={() => <p>Couldn&apos;t load tweet</p>}
+      />
+    ),
+    [theme, url]
+  )
+
   return (
     <Transition appear show={isOpenModal} as={Fragment}>
       <Dialog
@@ -101,22 +126,7 @@ export default function MyDialog(prop) {
               <div className='w-full pt-10 flex flex-col items-center'>
                 <p className='text-xl font-bold py-10'>Recent tweets </p>
                 <div className='self-center w-full lg:w-2/3'>
-                  <Timeline
-                    dataSource={{
-                      sourceType: 'url',
-                      url: url,
-                    }}
-                    options={{
-                      ...(theme
-                        ? {theme: 'dark', borderColor: '#A45110'}
-                        : {theme: 'light', borderColor: '#8d10a4'}),
-                      tweetLimit: 10,
-                      ariaPolite: 'rude',
-                      chrome: 'noheader, nofooter, transparent',
-                      showReplies: false,
-                    }}
-                    renderError={() => <p>Couldn&apos;t load tweet</p>}
-                  />
+                  <ShowTweet />
                 </div>
               </div>
               <div className='flex flex-row flex-grow justify-end m-5 md"mx-10 md:my-5'>
@@ -127,13 +137,14 @@ export default function MyDialog(prop) {
                     theme
                       ? 'hover:bg-white hover:text-red-500'
                       : 'hover:bg-red-700 hover:text-white',
-                    'w-32 text-gray-200 bg-red-500 text-xl m-3 p-3 rounded-full inline-flex items-center justify-center round cursor-pointer transition duration-300 ease-linear  focus:border-2 focus:border-solid focus:border-primary'
+                    'w-28 text-gray-200 bg-red-500 text-xl m-3 px-1 py-2 rounded-full inline-flex items-center justify-center round cursor-pointer transition duration-300 ease-linear  focus:border-2 focus:border-solid focus:border-primary md:w-32 md:p-3 md:m-5'
                   )}
                   onClick={closeInformation}
                 >
                   Back
                 </div>
               </div>
+              <ScrollBtn />
             </div>
           </Transition.Child>
         </div>

@@ -6,8 +6,8 @@ import {SocialIcon} from 'react-social-icons'
 import profilePic from 'public/images/ava/gallery5.jpg'
 import classNames from 'classnames'
 import getAge from '~/utils/helpers/getAge'
-import VtuberList from '~/components/layout/vtuberList'
-import Hobbies from '~/components/layout/hobbies'
+import VtuberList from '~/components/container/vtuberList'
+import Hobbies from '~/components/container/hobbies'
 import {getHobbies, getVtuberList} from '~/lib/controller/indexController'
 
 export const getStaticProps = async () => {
@@ -104,7 +104,7 @@ export default function Homepage(props) {
             >
               <figure>
                 <Image
-                  className='rounded-lg xl:rounded-r-lg xl:rounded-l-none shadow-md'
+                  className='rounded-lg xl:rounded-b-xl shadow-md'
                   src={profilePic}
                   alt='aboutme-1'
                   quality={100}
