@@ -1,47 +1,24 @@
 import classNames from 'classnames'
-import {useCallback, useContext, useEffect, useState} from 'react'
-import {ThemeContext} from '../layout/layout'
 import {ChevronUpIcon} from '@heroicons/react/solid'
-import useScrollTop from '~/utils/hooks/useScrollTop'
 
-export default function ScrollBtn() {
-  const {theme} = useContext(ThemeContext)
-  const bg__dl = theme
-    ? 'hover:bg-red-500 hover:text-white border-red-500'
-    : 'hover:bg-black hover:text-white border-black'
-  const [isShow, setIsShow] = useState(false)
-  const scrollTop = useCallback(
-    () =>
-      window.scrollTo({
-        top: 0,
-        behavior: 0,
-      }),
-    []
-  )
-  useEffect(() => {
-    const checkScrollTop = () => {
-      if (!isShow && window.scrollY > 400) {
-        setIsShow(true)
-      } else setIsShow(false)
-    }
-    window.addEventListener('scroll', checkScrollTop)
-
-    return () => window.removeEventListener('scroll', checkScrollTop)
-  }, [isShow])
+export default function ScrollBtn(props) {
+  const {visibility, scrollToTop, isBottom} = props
 
   return (
     <>
-      {isShow && (
-        <button
+      {visibility && (
+        <div
+          role='button'
           className={classNames(
-            bg__dl,
-            'flex items-center p-4 transition ease-in duration-200 uppercase rounded-full border-2 focus:outline-none'
+            isBottom
+              ? 'flex justify-center items-center m-3 p-3 border-green-500 border-2'
+              : 'fixed bottom-0 transfrom -translate-y-1 -translate-x-1/2 left-1/2',
+            ' rounded-full p-3 cursor-pointer text-green-500 hover:border-transparent hover:bg-green-500 hover:text-white transition duration-300 ease-linear'
           )}
-          onClick={() => scrollTop()}
+          onClick={scrollToTop}
         >
-          <ChevronUpIcon className='h-4 w-4' />
-          Scroll to top
-        </button>
+          <ChevronUpIcon className='h-10 w-10 pointer-events-none' />
+        </div>
       )}
     </>
   )

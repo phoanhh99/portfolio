@@ -34,7 +34,6 @@ export default function useOpenInformation() {
           isOpenModal: false,
           content: {
             ...prev.content,
-            url: '',
             description: '',
           },
         }

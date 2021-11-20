@@ -1,11 +1,11 @@
-import Image from 'next/image'
-import {Fragment, useCallback, useRef} from 'react'
 import {Dialog, Transition} from '@headlessui/react'
+import {ArrowLeftIcon, XIcon} from '@heroicons/react/outline'
 import classNames from 'classnames'
+import Image from 'next/image'
+import {Fragment, useEffect, useRef} from 'react'
 import {Timeline} from 'react-twitter-widgets'
-import {ArrowLeftIcon} from '@heroicons/react/outline'
-
 import ScrollBtn from './scrollBtn'
+import useScrollTop from 'utils/hooks/useScrollTop'
 export default function MyDialog(prop) {
   const {
     isOpenModal,
@@ -13,29 +13,15 @@ export default function MyDialog(prop) {
     content: {image, name, description, url, alt},
     theme,
   } = prop
-  const buttonRef = useRef(null)
 
-  const ShowTweet = useCallback(
-    () => (
-      <Timeline
-        dataSource={{
-          sourceType: 'url',
-          url: url,
-        }}
-        options={{
-          ...(theme
-            ? {theme: 'dark', borderColor: '#A45110'}
-            : {theme: 'light', borderColor: '#8d10a4'}),
-          tweetLimit: 10,
-          ariaPolite: 'rude',
-          chrome: 'noheader, nofooter, transparent',
-          showReplies: false,
-        }}
-        renderError={() => <p>Couldn&apos;t load tweet</p>}
-      />
-    ),
-    [theme, url]
-  )
+  const buttonRef = useRef(null)
+  const {
+    btnState: {isBottom, visibility},
+    getModalPosition,
+    scrollToTop,
+    reset,
+  } = useScrollTop()
+  useEffect(() => !isOpenModal && reset, [isOpenModal, reset])
 
   return (
     <Transition appear show={isOpenModal} as={Fragment}>
@@ -79,11 +65,12 @@ export default function MyDialog(prop) {
                 theme ? 'bg-black ' : 'bg-gray-100',
                 'relative inline-block text-left h-screen w-full overflow-auto transition-all'
               )}
+              onScroll={e => getModalPosition(e)}
             >
               <div className='flex flex-row flex-grow justify-start m-5 md"mx-10 md:my-5'>
                 <div
-                  type='button'
                   ref={buttonRef}
+                  type='button'
                   className={classNames(
                     theme ? 'text-gray-200' : 'text-indigo-700',
                     'w-32 text-xl m-3 p-3 inline-flex items-center bg-transparent cursor-pointer transition-transform hover:scale-125 focus:border-2 focus:border-solid focus:border-primary'
@@ -123,28 +110,49 @@ export default function MyDialog(prop) {
                 </div>
               </div>
               <div className='divide-y divide-base-100 divide-solid'></div>
-              <div className='w-full pt-10 flex flex-col items-center'>
+              <div
+                className='w-full pt-10 flex flex-col items-center'
+                id='twitter-section'
+              >
                 <p className='text-xl font-bold py-10'>Recent tweets </p>
                 <div className='self-center w-full lg:w-2/3'>
-                  <ShowTweet />
+                  <Timeline
+                    dataSource={{
+                      sourceType: 'url',
+                      url: url,
+                    }}
+                    options={{
+                      ...(theme
+                        ? {theme: 'dark', borderColor: '#A45110'}
+                        : {theme: 'light', borderColor: '#8d10a4'}),
+                      tweetLimit: 10,
+                      ariaPolite: 'rude',
+                      chrome: 'noheader, nofooter, transparent',
+                      showReplies: false,
+                    }}
+                    renderError={() => <p>Couldn&apos;t load tweet</p>}
+                  />
                 </div>
               </div>
-              <div className='flex flex-row flex-grow justify-end m-5 md"mx-10 md:my-5'>
+              <div className='flex flex-row flex-grow justify-around items-center m-5 md:mx-10 md:my-5'>
                 <div
                   type='button'
-                  ref={buttonRef}
                   className={classNames(
                     theme
-                      ? 'hover:bg-white hover:text-red-500'
+                      ? 'hover:bg-red-500 hover:text-white hover:border-transparent'
                       : 'hover:bg-red-700 hover:text-white',
-                    'w-28 text-gray-200 bg-red-500 text-xl m-3 px-1 py-2 rounded-full inline-flex items-center justify-center round cursor-pointer transition duration-300 ease-linear  focus:border-2 focus:border-solid focus:border-primary md:w-32 md:p-3 md:m-5'
+                    'w-min text-red-500 border-2 border-red-500 text-xl m-3 p-3 rounded-full md:rounded-md inline-flex items-center justify-center cursor-pointer transition duration-300 ease-linear'
                   )}
                   onClick={closeInformation}
                 >
-                  Back
+                  <XIcon className='h-7 w-7' />
                 </div>
+                <ScrollBtn
+                  visibility={visibility}
+                  scrollToTop={scrollToTop}
+                  isBottom={isBottom}
+                />
               </div>
-              <ScrollBtn />
             </div>
           </Transition.Child>
         </div>
