@@ -102,9 +102,14 @@ export default function useScrollTo() {
       modalState.ref.scrollTop = 0
     }
     if (modalState.pos === 'bottom' && modalState.ref) {
-      modalState.ref.scrollTop = modalState.scrollHeight
+      modalState.ref.scrollTop = modalState.scrollHeight - modalState.maxHeight
     }
-  }, [modalState.pos, modalState.ref, modalState.scrollHeight])
+  }, [
+    modalState.maxHeight,
+    modalState.pos,
+    modalState.ref,
+    modalState.scrollHeight,
+  ])
 
   const reset = useCallback(() => {
     setBtnState({
@@ -117,5 +122,12 @@ export default function useScrollTo() {
     })
   }, [])
 
-  return {btnState, getModalPosition, scrollToTop, scrollToBottom, reset}
+  return {
+    btnState,
+    modalState,
+    getModalPosition,
+    scrollToTop,
+    scrollToBottom,
+    reset,
+  }
 }

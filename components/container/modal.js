@@ -17,6 +17,7 @@ export default function MyDialog(prop) {
   const buttonRef = useRef(null)
   const {
     btnState: {isBottom, visibility, dir},
+    modalState: {pos, maxHeight, scrollHeight},
     getModalPosition,
     scrollToTop,
     scrollToBottom,
@@ -135,7 +136,7 @@ export default function MyDialog(prop) {
                   />
                 </div>
               </div>
-              <div className='flex flex-row flex-grow justify-around items-center pt-14 pb-10 md:mx-10 md:my-5'>
+              <div className='flex flex-row flex-grow justify-around items-center p-10'>
                 {isBottom && (
                   <div
                     type='button'
@@ -157,7 +158,14 @@ export default function MyDialog(prop) {
                 />
               </div>
               <section id='footer'>
-                <div className='flex flex-grow flex-row justify-around items-center py-10 '>
+                <div
+                  className={classNames(
+                    pos + maxHeight === scrollHeight
+                      ? '-translate-x-none opacity-100'
+                      : '-translate-x-1/3 opacity-0',
+                    'flex flex-grow flex-row justify-around items-center py-10 transition duration-1000 ease-bounce-in-out transform'
+                  )}
+                >
                   <div
                     className='text tracking-wide font-light '
                     id='copyright'
