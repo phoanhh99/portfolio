@@ -5,7 +5,7 @@ import Image from 'next/image'
 import {Fragment, useEffect, useRef} from 'react'
 import {Timeline} from 'react-twitter-widgets'
 import ScrollBtn from './scrollBtn'
-import useScrollTop from 'utils/hooks/useScrollTop'
+import useScrollTo from '~/utils/hooks/useScrollTo'
 export default function MyDialog(prop) {
   const {
     isOpenModal,
@@ -16,11 +16,12 @@ export default function MyDialog(prop) {
 
   const buttonRef = useRef(null)
   const {
-    btnState: {isBottom, visibility},
+    btnState: {isBottom, visibility, dir},
     getModalPosition,
     scrollToTop,
+    scrollToBottom,
     reset,
-  } = useScrollTop()
+  } = useScrollTo()
   useEffect(() => !isOpenModal && reset, [isOpenModal, reset])
 
   return (
@@ -91,7 +92,7 @@ export default function MyDialog(prop) {
                     quality={100}
                     loading='lazy'
                     crossOrigin='use-credentials'
-                    className='object-contain object-center'
+                    className='object-contain object-center select-none'
                   />
                 </div>
 
@@ -134,25 +135,40 @@ export default function MyDialog(prop) {
                   />
                 </div>
               </div>
-              <div className='flex flex-row flex-grow justify-around items-center m-5 md:mx-10 md:my-5'>
-                <div
-                  type='button'
-                  className={classNames(
-                    theme
-                      ? 'hover:bg-red-500 hover:text-white hover:border-transparent'
-                      : 'hover:bg-red-700 hover:text-white',
-                    'w-min text-red-500 border-2 border-red-500 text-xl m-3 p-3 rounded-full md:rounded-md inline-flex items-center justify-center cursor-pointer transition duration-300 ease-linear'
-                  )}
-                  onClick={closeInformation}
-                >
-                  <XIcon className='h-7 w-7' />
-                </div>
+              <div className='flex flex-row flex-grow justify-around items-center pt-14 pb-10 md:mx-10 md:my-5'>
+                {isBottom && (
+                  <div
+                    type='button'
+                    className={classNames(
+                      'w-min hover:bg-red-500 hover:text-white hover:border-transparent text-red-500 border-2 border-red-500 text-xl m-3 p-3 rounded-full md:rounded-md inline-flex items-center justify-center cursor-pointer transition duration-300 ease-linear'
+                    )}
+                    onClick={closeInformation}
+                  >
+                    <XIcon className='h-7 w-7' />
+                  </div>
+                )}
+
                 <ScrollBtn
                   visibility={visibility}
                   scrollToTop={scrollToTop}
+                  scrollToBottom={scrollToBottom}
                   isBottom={isBottom}
+                  dir={dir}
                 />
               </div>
+              <section id='footer'>
+                <div className='flex flex-grow flex-row justify-around items-center py-10 '>
+                  <div
+                    className='text tracking-wide font-light '
+                    id='copyright'
+                  >
+                    Ⓒ 2016 COVER 🍀 Corp.
+                  </div>
+                  <div className='text tracking-wide font-light ' id='author'>
+                    Made with 💓 by HoangAnh
+                  </div>
+                </div>
+              </section>
             </div>
           </Transition.Child>
         </div>

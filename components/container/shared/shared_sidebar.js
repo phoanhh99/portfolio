@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import classNames from 'classnames'
 import {LoginIcon, XIcon} from '@heroicons/react/outline'
 import {
@@ -56,22 +57,28 @@ export default function SharedSideBar(props) {
         </button>
         <ul className='menu h-full'>
           <li className='my-1'>
-            <button className='btn btn-ghost btn-block  flex-1 justify-between'>
-              <span className={customSpan}>Homepage</span>
-              <HomeIcon className={customSVG} />
-            </button>
+            <Link href='/' replace>
+              <a className='btn btn-ghost btn-block  flex-1 justify-between'>
+                <span className={customSpan}>Homepage</span>
+                <HomeIcon className={customSVG} />
+              </a>
+            </Link>
           </li>
           <li className='my-1'>
-            <button className='btn btn-ghost btn-block flex-1 justify-between'>
-              <span className={customSpan}>Skillstack</span>
-              <AcademicCapIcon className={customSVG} />
-            </button>
+            <Link href='/skillStack' replace>
+              <a className='btn btn-ghost btn-block  flex-1 justify-between'>
+                <span className={customSpan}>Skillstack</span>
+                <AcademicCapIcon className={customSVG} />
+              </a>
+            </Link>
           </li>
           <li className='my-1'>
-            <button className='btn btn-ghost btn-block flex-1 justify-between'>
-              <span className={customSpan}>My CV</span>
-              <IdentificationIcon className={customSVG} />
-            </button>
+            <Link href='/skillStack' replace>
+              <a className='btn btn-ghost btn-block  flex-1 justify-between'>
+                <span className={customSpan}>My CV</span>
+                <IdentificationIcon className={customSVG} />
+              </a>
+            </Link>
           </li>
           <li className='my-1'>
             <button
@@ -89,10 +96,12 @@ export default function SharedSideBar(props) {
             </button>
           </li>
           <li className='my-1'>
-            <button className='btn btn-ghost btn-block flex-1 justify-between'>
-              <span className={customSpan}>Login</span>
-              <LoginIcon className={customSVG} transform='rotate(180)' />
-            </button>
+            <Link href='/' replace>
+              <a className='btn btn-ghost btn-block  flex-1 justify-between'>
+                <span className={customSpan}>Login</span>
+                <LoginIcon className={customSVG} transform='rotate(180)' />
+              </a>
+            </Link>
           </li>
         </ul>
       </div>

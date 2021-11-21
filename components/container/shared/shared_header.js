@@ -23,17 +23,17 @@ export default function SharedHeader() {
         <div className='navbar mb-2 bg-base-100 h-full'>
           <div className='flex-none px-2 mx-2'>
             <h4 className='text-3xl lg:text-2xl font-bold'>
-              <span className='bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-pink-500 '>
+              <span className='bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-pink-500 select-none '>
                 Portfolio
               </span>
             </h4>
           </div>
           <div className='flex-auto px-2 mx-2'>
             <div className='items-stretch hidden lg:flex'>
-              <Link href='/' scroll>
+              <Link href='/' replace>
                 <a className='btn btn-ghost btn-sm rounded-btn'>Homepage</a>
               </Link>
-              <Link href='/skillStack' scroll>
+              <Link href='/skillStack' replace>
                 <a className='btn btn-ghost btn-sm rounded-btn'>Skillstack</a>
               </Link>
               <a className='btn btn-ghost btn-sm rounded-btn'>My CV</a>

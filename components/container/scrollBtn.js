@@ -1,9 +1,12 @@
 import classNames from 'classnames'
-import {ChevronUpIcon} from '@heroicons/react/solid'
+import {ChevronUpIcon, ChevronDownIcon} from '@heroicons/react/solid'
 
 export default function ScrollBtn(props) {
-  const {visibility, scrollToTop, isBottom} = props
-
+  const {visibility, scrollToTop, scrollToBottom, isBottom, dir} = props
+  const btn_chevron = {
+    sm: 'h-7 w-7 pointer-events-none',
+    lg: 'h-10 w-10 pointer-events-none',
+  }
   return (
     <>
       {visibility && (
@@ -15,9 +18,21 @@ export default function ScrollBtn(props) {
               : 'fixed bottom-0 transfrom -translate-y-1 -translate-x-1/2 left-1/2',
             ' rounded-full p-3 cursor-pointer text-green-500 hover:border-transparent hover:bg-green-500 hover:text-white transition duration-300 ease-linear'
           )}
-          onClick={scrollToTop}
+          onClick={() =>
+            dir === 'up'
+              ? scrollToTop()
+              : dir === 'down' && !isBottom
+              ? scrollToBottom()
+              : scrollToTop()
+          }
         >
-          <ChevronUpIcon className='h-10 w-10 pointer-events-none' />
+          {dir === 'up' && !isBottom ? (
+            <ChevronUpIcon className={btn_chevron.lg} />
+          ) : dir === 'down' && !isBottom ? (
+            <ChevronDownIcon className={btn_chevron.lg} />
+          ) : (
+            <ChevronUpIcon className={btn_chevron.sm} />
+          )}
         </div>
       )}
     </>

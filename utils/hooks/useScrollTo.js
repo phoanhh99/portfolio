@@ -4,29 +4,49 @@ export default function useScrollTo() {
   const [btnState, setBtnState] = useState({
     visibility: false,
     isBottom: false,
+    dir: null,
   })
 
   const [modalState, setModalState] = useState({
     ref: null,
-    pos: 0,
-    // maxHeight: 0,
-    // scrollHeight: 0,
+    pos: null,
+    maxHeight: null,
+    scrollHeight: null,
   })
 
   const getModalPosition = ({target}) => {
     const {scrollTop, clientHeight, scrollHeight} = target
-    setModalState({
-      ref: target,
-      pos: scrollTop,
-      maxHeight: clientHeight,
-      scrollHeight: scrollHeight,
+    setModalState(prev => {
+      if (prev.pos > scrollTop) {
+        setBtnState(prev => {
+          return {
+            ...prev,
+            dir: 'up',
+          }
+        })
+      } else {
+        setBtnState(prev => {
+          return {
+            ...prev,
+            dir: 'down',
+          }
+        })
+      }
+      return {
+        ...prev,
+        ref: target,
+        pos: scrollTop,
+        maxHeight: clientHeight,
+        scrollHeight: scrollHeight,
+      }
     })
   }
 
   useEffect(() => {
+    if (!modalState.scrollHeight || !modalState.maxHeight) return
     const reachedEnd =
-      modalState.scrollHeight - Math.abs(modalState.pos) ===
-      modalState.maxHeight
+      modalState.scrollHeight - Math.abs(modalState.pos) <
+      modalState.maxHeight + 300
     if (reachedEnd) {
       setBtnState(prev => {
         return {
@@ -35,7 +55,12 @@ export default function useScrollTo() {
           isBottom: true,
         }
       })
-    } else if (!reachedEnd && modalState.pos > 300) {
+    } else if (
+      !reachedEnd &&
+      Math.abs(modalState.pos) + modalState.maxHeight <
+        modalState.scrollHeight &&
+      modalState.pos > 100
+    ) {
       setBtnState(prev => {
         return {
           ...prev,
@@ -63,11 +88,23 @@ export default function useScrollTo() {
     })
   }
 
+  const scrollToBottom = () => {
+    setModalState(prev => {
+      return {
+        ...prev,
+        pos: 'bottom',
+      }
+    })
+  }
+
   useEffect(() => {
     if (modalState.pos === 0 && modalState.ref) {
       modalState.ref.scrollTop = 0
     }
-  }, [modalState.pos, modalState.ref])
+    if (modalState.pos === 'bottom' && modalState.ref) {
+      modalState.ref.scrollTop = modalState.scrollHeight
+    }
+  }, [modalState.pos, modalState.ref, modalState.scrollHeight])
 
   const reset = useCallback(() => {
     setBtnState({
@@ -80,5 +117,5 @@ export default function useScrollTo() {
     })
   }, [])
 
-  return {btnState, getModalPosition, scrollToTop, reset}
+  return {btnState, getModalPosition, scrollToTop, scrollToBottom, reset}
 }
