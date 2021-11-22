@@ -89,7 +89,7 @@ export default function Homepage(props) {
       </section>
       <div className='divider'></div>
       <section
-        className='flex flex-1 items-center justify-center py-10 '
+        className='flex flex-1 items-center justify-center my-10 '
         id='about'
       >
         <div className=''>
