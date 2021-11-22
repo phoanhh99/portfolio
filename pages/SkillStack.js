@@ -1,7 +1,10 @@
 import Image from 'next/image'
 import Head from 'next/head'
 import classNames from 'classnames'
-export default function skillStack({theme}) {
+import {useContext} from 'react'
+import {ThemeContext} from '~/components/layout/layout'
+export default function SkillStack() {
+  const {theme} = useContext(ThemeContext)
   return (
     <>
       <Head>
@@ -15,8 +18,8 @@ export default function skillStack({theme}) {
           <div className='grid grid-cols-4 gap-4 m-10 sm:grid-cols-8 sm:gap-6 lg:grid-cols-12 lg:gap-10 sm:px-8 xl:px-0'>
             <div
               className={classNames(
-                'flex flex-col items-center  col-span-4 px-8 py-12 space-y-4 overflow-hidden rounded-lg',
-                theme ? ' bg-gray-500 text-white' : ' bg-gray-100 text-gray-600'
+                'flex flex-col items-center  col-span-4 px-8 py-12 space-y-4 overflow-hidden rounded-lg drop-shadow-lg',
+                theme ? ' bg-gray-700 text-white' : ' bg-white text-black'
               )}
             >
               <h2 className='text-xl font-bold inline-flex'>Front-end stack</h2>
@@ -89,8 +92,8 @@ export default function skillStack({theme}) {
             </div>
             <div
               className={classNames(
-                'flex flex-col items-center  col-span-4 px-8 py-12 space-y-4 overflow-hidden rounded-lg',
-                theme ? ' bg-gray-500 text-white' : ' bg-gray-100 text-gray-600'
+                'flex flex-col items-center  col-span-4 px-8 py-12 space-y-4 overflow-hidden rounded-lg drop-shadow-lg',
+                theme ? ' bg-gray-700 text-white' : ' bg-white text-black'
               )}
             >
               <h2 className='text-xl font-bold inline-flex'>Back-end stack</h2>

@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {useState} from 'react'
 
 export default function useMouseHover(imgRef) {
@@ -5,18 +6,23 @@ export default function useMouseHover(imgRef) {
     whichOne: '',
     status: false,
   })
-  const handleEventOut = ({currentTarget}) =>
-    imgRef.current.includes(currentTarget) &&
-    setShow({
-      whichOne: currentTarget,
-      status: false,
-    })
-  const handleEventIn = ({currentTarget}) =>
-    imgRef.current.includes(currentTarget) &&
-    setShow({
-      whichOne: currentTarget,
-      status: true,
-    })
+  const handleEventOut = useCallback(
+    ({currentTarget}) =>
+      imgRef.current.includes(currentTarget) &&
+      setShow({
+        status: false,
+      }),
+    [imgRef]
+  )
+  const handleEventIn = useCallback(
+    ({currentTarget}) =>
+      imgRef.current.includes(currentTarget) &&
+      setShow({
+        whichOne: currentTarget,
+        status: true,
+      }),
+    [imgRef]
+  )
 
   return {isShow, handleEventOut, handleEventIn}
 }

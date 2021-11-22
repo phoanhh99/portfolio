@@ -33,7 +33,7 @@ export default function SharedHeader() {
               <Link href='/' replace>
                 <a className='btn btn-ghost btn-sm rounded-btn'>Homepage</a>
               </Link>
-              <Link href='/skillStack' replace>
+              <Link href='/SkillStack' replace>
                 <a className='btn btn-ghost btn-sm rounded-btn'>Skillstack</a>
               </Link>
               <a className='btn btn-ghost btn-sm rounded-btn'>My CV</a>

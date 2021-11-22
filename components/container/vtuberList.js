@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import classNames from 'classnames'
-import React, {useRef, useEffect, useContext} from 'react'
+import React, {useRef, useContext} from 'react'
 import useOpenInformation from '~/utils/hooks/useOpenInformation'
 import MyDialog from '~/components/container/modal'
 import useMouseHover from '~/utils/hooks/useMouseHover'
@@ -9,11 +9,6 @@ export default function VtuberList(props) {
   const {arr} = props
   const {theme} = useContext(ThemeContext)
   const imgRef = useRef([])
-
-  useEffect(() => {
-    imgRef.current = imgRef.current.slice(0, arr.length)
-  }, [arr])
-
   const {
     isShow: {status, whichOne},
     handleEventIn,
