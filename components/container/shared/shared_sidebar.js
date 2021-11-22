@@ -65,7 +65,7 @@ export default function SharedSideBar(props) {
             </Link>
           </li>
           <li className='my-1'>
-            <Link href='/skillStack' replace>
+            <Link href='/SkillStack' replace>
               <a className='btn btn-ghost btn-block  flex-1 justify-between'>
                 <span className={customSpan}>Skillstack</span>
                 <AcademicCapIcon className={customSVG} />
@@ -73,7 +73,7 @@ export default function SharedSideBar(props) {
             </Link>
           </li>
           <li className='my-1'>
-            <Link href='/skillStack' replace>
+            <Link href='/CV' replace>
               <a className='btn btn-ghost btn-block  flex-1 justify-between'>
                 <span className={customSpan}>My CV</span>
                 <IdentificationIcon className={customSVG} />

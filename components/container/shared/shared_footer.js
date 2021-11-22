@@ -1,26 +1,33 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from 'styles/modules/svgColor.module.css'
 import cn from 'classnames'
 
 export default function SharedFooter() {
   return (
-    <footer className='flex items-center justify-center w-full h-24 border-t'>
-      <a
-        className='flex items-center justify-center'
-        href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        Powered by{' '}
+    <footer className='pt-10 w-full h-44 footer bg-base-200 text-base-content footer-center absolute bottom-0'>
+      <div className='grid grid-flow-col gap-4'>
+        <Link href='/'>
+          <a className='link link-hover'>About me</a>
+        </Link>
+        <Link href='/Contact'>
+          <a className='link link-hover'>Contact</a>
+        </Link>
+        <Link href='/Projects'>
+          <a className='link link-hover'>Projects</a>
+        </Link>
+      </div>
+      <div className='inline-flex m-auto'>
+        Copyright © {new Date().getFullYear()} - Powered by{' '}
         <Image
-          className={cn(styles['fill--pink'], '!mt-1 !py-1')}
+          className={cn(styles['fill--pink'])}
           src='/vercel.svg'
           alt='Vercel Logo'
           width={'60%'}
           height={'60%'}
-          priority
+          quality={100}
         />
-      </a>
+      </div>
     </footer>
   )
 }
