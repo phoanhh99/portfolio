@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import 'styles/modules/customFont.module.css'
 import {SocialIcon} from 'react-social-icons'
 import profilePic from 'public/images/ava/gallery5.jpg'
@@ -9,6 +9,7 @@ import getAge from '~/utils/helpers/getAge'
 import VtuberList from '~/components/container/vtuberList'
 import Hobbies from '~/components/container/hobbies'
 import {getHobbies, getVtuberList} from '~/lib/controller/indexController'
+import useEventHandlers from '~/utils/hooks/useEventHandlers'
 
 export const getStaticProps = async () => {
   const hobbieList = await getHobbies()
@@ -22,8 +23,25 @@ export const getStaticProps = async () => {
 }
 export default function Homepage(props) {
   const {hobbieList, vtuberList} = props
+  const [isAppear, setAppear] = useState(false)
   const age = getAge()
-
+  //TODO: Vtuber section will enable a slide in transition when window scroll to point of sum vtb section top and navbar height
+  const vtuberRef = useRef(0)
+  const [pos, savePos] = useState(0)
+  useEffect(() => {
+    savePos(vtuberRef.current.getBoundingClientRect().top)
+    setAppear(false)
+  }, [])
+  useEventHandlers('scroll', () => {
+    if (typeof window !== 'undefined') {
+      const windowScroll = window.scrollY
+      const navHeight = document.getElementsByTagName('nav')[0].offsetHeight
+      const sum = windowScroll + navHeight
+      if (sum >= pos) {
+        setAppear(true)
+      }
+    }
+  })
   return (
     <>
       <Head>
@@ -31,9 +49,9 @@ export default function Homepage(props) {
       </Head>
       <section
         id='top'
-        className='flex flex-col items-center justify-center  pb-10'
+        className='flex flex-col items-center justify-center pb-10'
       >
-        <div className='w-full mx-auto py-2 bg-transparent'>
+        <div className='w-full mx-auto  bg-transparent'>
           <div className='flex justify-center h-screen min-w-full bg-hero-background bg-cover bg-no-repeat bg-origin-border bg-local lg:bg-center md:bg-bottom '>
             <div className='text-md text-center hero-content text-gray-100'>
               <div className='max-w-md'>
@@ -160,9 +178,11 @@ export default function Homepage(props) {
                   >
                     click this to know more about it
                   </a>
-                  <br />
-                  These are some of my favorite vtubers:
-                  <VtuberList arr={vtuberList} />
+                  <VtuberList
+                    arr={vtuberList}
+                    ref={vtuberRef}
+                    isAppear={isAppear}
+                  />
                 </div>
               </div>
             </div>

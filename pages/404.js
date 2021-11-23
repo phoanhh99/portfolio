@@ -15,7 +15,7 @@ export default function Custom404() {
       <Head>
         <title>Not Found</title>
       </Head>
-      <div className='bg-transparent flex items-center'>
+      <div className='bg-transparent flex items-center w-full h-screen'>
         <div className={container_dl}>
           <div className='max-w-md'>
             <div className='text-5xl font-dark font-bold tracking-widest text-center'>
