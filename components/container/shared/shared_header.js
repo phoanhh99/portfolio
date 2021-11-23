@@ -9,7 +9,6 @@ import {ThemeContext} from '../../layout/layout'
 export default function SharedHeader() {
   const {isPressed, openIt, closeIt} = useOpenSidebar()
   const {theme, saveLocal} = useContext(ThemeContext)
-
   const loginBtn = cn(
     theme
       ? 'text-yellow-600 bg-gray-100 hover:text-gray-100 hover:bg-yellow-600'
@@ -19,8 +18,8 @@ export default function SharedHeader() {
 
   return (
     <>
-      <div className='flex flex-col sticky top-0 shadow-2xl w-full z-10 h-20'>
-        <div className='navbar mb-2 bg-base-100 h-full'>
+      <nav className='flex flex-col sticky top-0 drop-shadow-lg w-full z-10 h-20'>
+        <div className='navbar bg-base-100 h-full'>
           <div className='flex-none px-2 mx-2'>
             <h4 className='text-3xl lg:text-2xl font-bold'>
               <span className='bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-pink-500 select-none '>
@@ -74,7 +73,7 @@ export default function SharedHeader() {
             </div>
           </div>
         </div>
-      </div>
+      </nav>
 
       <SharedSideBar
         theme={theme}
