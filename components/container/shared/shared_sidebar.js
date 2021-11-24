@@ -1,14 +1,14 @@
-import React from 'react'
-import Link from 'next/link'
-import classNames from 'classnames'
 import {LoginIcon, XIcon} from '@heroicons/react/outline'
 import {
   AcademicCapIcon,
   HomeIcon,
   IdentificationIcon,
-  SunIcon,
   MoonIcon,
+  SunIcon,
 } from '@heroicons/react/solid'
+import classNames from 'classnames'
+import Link from 'next/link'
+import React from 'react'
 import useEventHandlers from 'utils/hooks/useEventHandlers'
 
 export default function SharedSideBar(props) {

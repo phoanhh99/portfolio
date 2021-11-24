@@ -1,9 +1,9 @@
-import Image from 'next/image'
 import classNames from 'classnames'
-import React, {useContext, forwardRef} from 'react'
-import useOpenInformation from '~/utils/hooks/useOpenInformation'
+import Image from 'next/image'
+import React, {forwardRef, useContext} from 'react'
 import MyDialog from '~/components/container/modal'
 import useMouseHover from '~/utils/hooks/useMouseHover'
+import useOpenInformation from '~/utils/hooks/useOpenInformation'
 import {ThemeContext} from '../layout/layout'
 
 function VtuberList(props, ref) {

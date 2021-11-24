@@ -1,6 +1,6 @@
+import Head from 'next/head'
 import 'styles/globals.css'
 import 'tailwindcss/tailwind.css'
-import Head from 'next/head'
 function MyApp({Component, pageProps}) {
   const getLayout = Component.getLayout || (page => page)
   return (
