@@ -66,10 +66,12 @@ export default function SharedHeader() {
               />
             </div>
             <div className='mx-1 flex-grow-0'>
-              <button className={loginBtn}>
-                <span className='mr-3'>Sign in</span>
-                <LoginIcon className='h-7 w-7' transform='rotate(180)' />
-              </button>
+              <Link href={'/login'}>
+                <a className={loginBtn}>
+                  <span className='mr-3'>Sign in</span>
+                  <LoginIcon className='h-7 w-7' transform='rotate(180)' />
+                </a>
+              </Link>
             </div>
           </div>
         </div>

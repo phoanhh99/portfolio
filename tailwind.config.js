@@ -22,7 +22,24 @@ module.exports = {
       backgroundImage: {
         'hero-background': `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/ava/gallery1.jpg')`,
       },
+      colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+
+        teal: {
+          100: '#e6fffa',
+          200: '#b2f5ea',
+          300: '#81e6d9',
+          400: '#4fd1c5',
+          500: '#38b2ac',
+          600: '#319795',
+          700: '#2c7a7b',
+          800: '#285e61',
+          900: '#234e52',
+        },
+      },
     },
+
     gradientColorStops: theme => ({
       ...theme('colors'),
       gura: '#355c7d',

@@ -96,7 +96,7 @@ export default function SharedSideBar(props) {
             </button>
           </li>
           <li className='my-1'>
-            <Link href='/' replace>
+            <Link href='/login'>
               <a className='btn btn-ghost btn-block  flex-1 justify-between'>
                 <span className={customSpan}>Login</span>
                 <LoginIcon className={customSVG} transform='rotate(180)' />
