@@ -29,11 +29,16 @@ export default function Homepage(props) {
   const vtuberRef = useRef(0)
   const [pos, savePos] = useState(0)
   useEffect(() => {
-    savePos(vtuberRef.current.getBoundingClientRect().top)
-    setAppear(false)
+    if (vtuberRef.current) {
+      savePos(vtuberRef.current.getBoundingClientRect().top)
+      setAppear(false)
+    }
   }, [])
   useEventHandlers('scroll', () => {
-    if (typeof window !== 'undefined') {
+    if (
+      typeof window !== 'undefined' &&
+      document.getElementsByTagName('nav').length > 0
+    ) {
       const windowScroll = window.scrollY
       const navHeight = document.getElementsByTagName('nav')[0].offsetHeight
       const sum = windowScroll + navHeight
