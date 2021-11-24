@@ -1,9 +1,8 @@
 import 'styles/globals.css'
 import 'tailwindcss/tailwind.css'
 import Head from 'next/head'
-import Layout from '~/components/layout/layout'
-
 function MyApp({Component, pageProps}) {
+  const getLayout = Component.getLayout || (page => page)
   return (
     <>
       <Head>
@@ -12,9 +11,7 @@ function MyApp({Component, pageProps}) {
           content='width=device-width, initial-scale=1, shrink-to-fit=no'
         />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      {getLayout(<Component {...pageProps} />)}
     </>
   )
 }

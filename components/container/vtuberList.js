@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import classNames from 'classnames'
-import React, {useRef, useContext, forwardRef} from 'react'
+import React, {useContext, forwardRef} from 'react'
 import useOpenInformation from '~/utils/hooks/useOpenInformation'
 import MyDialog from '~/components/container/modal'
 import useMouseHover from '~/utils/hooks/useMouseHover'
@@ -9,12 +9,11 @@ import {ThemeContext} from '../layout/layout'
 function VtuberList(props, ref) {
   const {arr, isAppear} = props
   const {theme} = useContext(ThemeContext)
-  const imgRef = useRef([])
   const {
     isShow: {status, whichOne},
     handleEventIn,
     handleEventOut,
-  } = useMouseHover(imgRef)
+  } = useMouseHover()
   const {
     target: {isOpenModal, content},
     openInformation,
@@ -33,47 +32,42 @@ function VtuberList(props, ref) {
             slideInClass
           )}
         >
-          {arr.map(
-            ({name, alt, imgSrc, base64BlurSrc, description, url}, i) => (
+          {arr.map(({name, alt, imgSrc, base64BlurSrc, description, url}) => (
+            <div
+              className='relative col-auto h-full w-full drop-shadow-lg border-primary border-2 border-solid rounded-md bg-center bg-no-repeat cursor-pointer'
+              onMouseEnter={() => handleEventIn(name)}
+              onMouseLeave={handleEventOut}
+              onClick={e =>
+                openInformation(e, {
+                  image: imgSrc,
+                  name: name,
+                  description: description,
+                  alt: alt,
+                  url: url,
+                })
+              }
+              key={alt}
+            >
+              <Image
+                className='object-top object-cover filter blur-lg transform scale-100 rounded-md'
+                alt={alt}
+                src={imgSrc}
+                width={350}
+                height={350}
+                layout='responsive'
+                placeholder='blur'
+                blurDataURL={base64BlurSrc}
+              />
               <div
-                className='relative col-auto h-full w-full drop-shadow-lg border-primary border-2 border-solid rounded-md bg-center bg-no-repeat cursor-pointer'
-                onMouseEnter={handleEventIn}
-                onMouseLeave={handleEventOut}
-                onClick={e =>
-                  openInformation(e, {
-                    image: imgSrc,
-                    name: name,
-                    description: description,
-                    alt: alt,
-                    url: url,
-                  })
-                }
-                ref={el => (imgRef.current[i] = el)}
-                key={alt}
+                className={classNames(
+                  'absolute flex items-center justify-center rounded-b-md bottom-0 left-0 font-bold text-lg sm:text-xl xl:text-2xl text-white bg-black h-1/4 lg:h-1/3 w-full bg-opacity-60 transition duration-300 ease-linear',
+                  status && whichOne === name ? 'opacity-100' : 'opacity-0'
+                )}
               >
-                <Image
-                  className='object-top object-cover filter blur-lg transform scale-100 rounded-md'
-                  alt={alt}
-                  src={imgSrc}
-                  width={350}
-                  height={350}
-                  layout='responsive'
-                  placeholder='blur'
-                  blurDataURL={base64BlurSrc}
-                />
-                <div
-                  className={classNames(
-                    'absolute flex items-center justify-center rounded-b-md bottom-0 left-0 font-bold text-lg sm:text-xl xl:text-2xl text-white bg-black h-1/4 lg:h-1/3 w-full bg-opacity-60 transition duration-300 ease-linear',
-                    status && whichOne === imgRef.current[i]
-                      ? 'opacity-100'
-                      : 'opacity-0'
-                  )}
-                >
-                  {name}
-                </div>
+                {name}
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
       </section>
 

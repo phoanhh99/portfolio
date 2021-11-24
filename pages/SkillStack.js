@@ -2,7 +2,8 @@ import Image from 'next/image'
 import Head from 'next/head'
 import classNames from 'classnames'
 import {useContext} from 'react'
-import {ThemeContext} from '~/components/layout/layout'
+import Layout, {ThemeContext} from '~/components/layout/layout'
+
 export default function SkillStack() {
   const {theme} = useContext(ThemeContext)
   return (
@@ -146,4 +147,7 @@ export default function SkillStack() {
       </section>
     </>
   )
+}
+SkillStack.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }

@@ -21,6 +21,7 @@ module.exports = {
       },
       backgroundImage: {
         'hero-background': `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/ava/gallery1.jpg')`,
+        'login-background': `url('/images/background/collins-lesulie-P3l3cqVLoRs-unsplash.jpg')`,
       },
       colors: {
         transparent: 'transparent',
@@ -37,6 +38,20 @@ module.exports = {
           800: '#285e61',
           900: '#234e52',
         },
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': {opacity: 0},
+          '100%': {opacity: 100},
+        },
+        'fade-out': {
+          '0%': {opacity: 100},
+          '100%': {opacity: 0},
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in .5s ease-in 1',
+        'fade-out': 'fade-out .5s ease-out 1',
       },
     },
 

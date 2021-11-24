@@ -1,16 +1,16 @@
+import classNames from 'classnames'
+import Layout from 'components/layout/layout'
 import Head from 'next/head'
 import Image from 'next/image'
-import React, {useEffect, useRef, useState} from 'react'
-import 'styles/modules/customFont.module.css'
-import {SocialIcon} from 'react-social-icons'
 import profilePic from 'public/images/ava/gallery5.jpg'
-import classNames from 'classnames'
-import getAge from '~/utils/helpers/getAge'
-import VtuberList from '~/components/container/vtuberList'
+import React, {useEffect, useRef, useState} from 'react'
+import {SocialIcon} from 'react-social-icons'
+import 'styles/modules/customFont.module.css'
 import Hobbies from '~/components/container/hobbies'
+import VtuberList from '~/components/container/vtuberList'
 import {getHobbies, getVtuberList} from '~/lib/controller/indexController'
+import getAge from '~/utils/helpers/getAge'
 import useEventHandlers from '~/utils/hooks/useEventHandlers'
-
 export const getStaticProps = async () => {
   const hobbieList = await getHobbies()
   const content = await getVtuberList()
@@ -196,4 +196,8 @@ export default function Homepage(props) {
       </section>
     </>
   )
+}
+
+Homepage.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
 }
