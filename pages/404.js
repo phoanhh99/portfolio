@@ -2,9 +2,9 @@ import Image from 'next/image'
 import Head from 'next/head'
 import Kitty from '~/public/kitty.svg'
 import {useContext} from 'react'
-import {ThemeContext} from '~/components/layout/layout'
+import Layout, {ThemeContext} from '~/components/layout/layout'
 import classNames from 'classnames'
-export default function Custom404() {
+function Custom404() {
   const {theme} = useContext(ThemeContext)
   const container_dl = classNames(
     theme ? 'text-gray-100' : 'text-gray-700',
@@ -34,3 +34,9 @@ export default function Custom404() {
     </>
   )
 }
+
+Custom404.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>
+}
+
+export default Custom404

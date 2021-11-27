@@ -48,10 +48,34 @@ module.exports = {
           '0%': {opacity: 100},
           '100%': {opacity: 0},
         },
+        'slide-left': {
+          '0%': {
+            transform: 'translate(-50%)',
+            opacity: 0,
+          },
+          '100%': {
+            transform: 'translate(0)',
+            opacity: 100,
+          },
+        },
+        'slide-right': {
+          '0%': {
+            transform: 'translate(50%)',
+            opacity: 0,
+          },
+          '100%': {
+            transform: 'translate(0)',
+            opacity: 100,
+          },
+        },
       },
       animation: {
         'fade-in': 'fade-in .5s ease-in 1',
         'fade-out': 'fade-out .5s ease-out 1',
+        'sliding-in-left': 'slide-left .5s ease-in 1',
+        'sliding-out-left': 'slide-left .5s ease-out 1',
+        'sliding-in-right': 'slide-right .5s ease-in 1',
+        'sliding-out-right': 'slide-right .5s ease-out 1',
       },
     },
 
