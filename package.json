@@ -44,6 +44,7 @@
     "plaiceholder": "^2.2.0",
     "postcss": "^8.3.11",
     "prettier": "^2.4.1",
+    "react-social-login-buttons": "^3.6.0",
     "sharp": "^0.29.3",
     "swr": "^1.0.1",
     "tailwindcss": "^2.2.19"
