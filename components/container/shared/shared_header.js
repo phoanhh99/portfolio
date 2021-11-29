@@ -1,20 +1,18 @@
-import {LoginIcon, MenuIcon, MoonIcon, SunIcon} from '@heroicons/react/outline'
+import {MenuIcon, MoonIcon, SunIcon} from '@heroicons/react/outline'
 import cn from 'classnames'
 import Link from 'next/link'
 import React, {useContext} from 'react'
 import SharedSideBar from '~/components/container/shared/shared_sidebar'
+import useAuth from '~/utils/hooks/useAuth'
 import useOpenSidebar from '~/utils/hooks/useOpenSidebar'
 import {ThemeContext} from '../../layout/layout'
+import LoginSection from './loginSection'
+import UserSection from './userSection'
 
 export default function SharedHeader() {
   const {isPressed, openIt, closeIt} = useOpenSidebar()
   const {theme, saveLocal} = useContext(ThemeContext)
-  const loginBtn = cn(
-    theme
-      ? 'text-yellow-600 bg-gray-100 hover:text-gray-100 hover:bg-yellow-600'
-      : 'bg-gray-800 text-yellow-300 hover:text-gray-800 hover:bg-yellow-600',
-    'flex max-h-11 items-center p-3 w-full rounded-lg transition duration-300 ease-linear transform hover:scale-110'
-  )
+  const {profile} = useAuth()
 
   return (
     <>
@@ -65,14 +63,11 @@ export default function SharedHeader() {
                 fill={theme ? '#F59E0B' : 'none'}
               />
             </div>
-            <div className='mx-1 flex-grow-0'>
-              <Link href={'/login'}>
-                <a className={loginBtn}>
-                  <span className='mr-3'>Sign in</span>
-                  <LoginIcon className='h-7 w-7' transform='rotate(180)' />
-                </a>
-              </Link>
-            </div>
+            {profile.isAuthenticated ? (
+              <UserSection profile={profile} />
+            ) : (
+              <LoginSection theme={theme} />
+            )}
           </div>
         </div>
       </nav>

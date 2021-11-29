@@ -11,6 +11,8 @@ import {
   GithubLoginButton,
   TwitterLoginButton,
 } from 'react-social-login-buttons'
+
+import {signIn} from 'next-auth/react'
 function Login() {
   return (
     <>
@@ -20,7 +22,7 @@ function Login() {
 
       <div className='flex justify-center items-center min-h-screen min-w-screen bg-gradient-to-bl from-yellow-800 to-yellow-600 '>
         <div className='relative flex m-auto flex-col lg:flex-row h-min lg:h-1/3 md:w-2/3 xl:w-3/5 drop-shadow-md bg-white rounded-md animate-fade-in'>
-          <Link href={'/'}>
+          <Link href='/'>
             <a
               role={'button'}
               className='absolute inset-x-auto top-3 left-3 text-gray-900 lg:text-white font-semibold tracking-normal md:tracking-wider flex flex-1 flex-row lg:justify-center items-center cursor-pointer rounded-lg transition duration-300  ease-in-out p-2  md:backdrop-filter md:hover:backdrop-blur-lg hover:ring-2 lg:hover:ring-0 hover:ring-gray-900'
@@ -34,10 +36,10 @@ function Login() {
             <div className='text-left font-sans'>
               <ul>
                 <li>
-                  <FacebookLoginButton className='' />
+                  <FacebookLoginButton onClick={() => signIn('facebook')} />
                 </li>
                 <li>
-                  <GithubLoginButton />
+                  <GithubLoginButton onClick={() => signIn('github')} />
                 </li>
                 <li>
                   <TwitterLoginButton />

@@ -1,4 +1,4 @@
-import {LoginIcon, XIcon} from '@heroicons/react/outline'
+import {XIcon} from '@heroicons/react/outline'
 import {
   AcademicCapIcon,
   HomeIcon,
@@ -10,10 +10,20 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import React from 'react'
 import useEventHandlers from 'utils/hooks/useEventHandlers'
+import useAuth from '~/utils/hooks/useAuth'
+import LoginSection from './loginSection'
+import UserSection from './userSection'
 
 export default function SharedSideBar(props) {
   const {theme, isPressed, closeIt, toggleTheme} = props
+  const {profile} = useAuth()
 
+  useEventHandlers('keydown', e => {
+    const screen = document.getElementsByTagName('body')[0].offsetWidth
+    if (e.keyCode === 27 && screen < 1024) {
+      return closeIt()
+    }
+  })
   const customSpan = classNames(
     'text-sm md:text-base tracking-wide md:tracking-wider xl:tracking-widest',
     theme ? 'text-gray-100' : 'text-gray-600'
@@ -22,14 +32,6 @@ export default function SharedSideBar(props) {
     'h-7 w-7 p-1 md:h-8 md:w-8',
     theme ? 'text-base' : 'text-gray-600'
   )
-
-  useEventHandlers('keydown', e => {
-    const screen = document.getElementsByTagName('body')[0].offsetWidth
-    if (e.keyCode === 27 && screen < 1024) {
-      return closeIt()
-    }
-  })
-
   return (
     <>
       <div
@@ -96,12 +98,11 @@ export default function SharedSideBar(props) {
             </button>
           </li>
           <li className='my-1'>
-            <Link href='/login'>
-              <a className='btn btn-ghost btn-block  flex-1 justify-between'>
-                <span className={customSpan}>Login</span>
-                <LoginIcon className={customSVG} transform='rotate(180)' />
-              </a>
-            </Link>
+            {profile.isAuthenticated ? (
+              <UserSection profile={profile} />
+            ) : (
+              <LoginSection theme={theme} />
+            )}
           </li>
         </ul>
       </div>
