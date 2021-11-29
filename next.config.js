@@ -13,6 +13,7 @@ const nextConfig = withPlaiceholder({
       'static.wikia.nocookie.net',
       'user-images.strikinglycdn.com',
       'images.microcms-assets.io',
+      'avatars.githubusercontent.com',
     ],
   },
   webpack: config => {
