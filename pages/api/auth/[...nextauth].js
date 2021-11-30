@@ -6,7 +6,7 @@ export default NextAuth({
   secret: 'motionblur',
   session: {
     maxAge: 60 * 60 * 12, //12hours
-    updateAge: 60 * 60 * 6,
+    updateAge: 60 * 60 * 10,
   },
   events: {
     async signIn(message) {

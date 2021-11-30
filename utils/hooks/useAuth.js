@@ -10,19 +10,20 @@ export default function useAuth() {
     isAuthenticated: false,
   })
   useEffect(() => {
-    if (!session) return false
-    const {
-      user: {name, email, image},
-    } = session
+    if (session) {
+      const {
+        user: {name, email, image},
+      } = session
 
-    setProfile(prev => {
-      return {
-        ...prev,
-        name: name,
-        email: email,
-        image: image,
-      }
-    })
+      setProfile(prev => {
+        return {
+          ...prev,
+          name: name,
+          email: email,
+          image: image,
+        }
+      })
+    }
   }, [session, status])
   useEffect(() => {
     if (status === 'authenticated') {
@@ -42,5 +43,5 @@ export default function useAuth() {
       })
     }
   }, [status])
-  return {profile}
+  return {profile, session}
 }

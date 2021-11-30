@@ -11,8 +11,22 @@ import {
   GithubLoginButton,
   DiscordLoginButton,
 } from 'react-social-login-buttons'
+import {getSession, signIn} from 'next-auth/react'
 
-import {signIn} from 'next-auth/react'
+export async function getServerSideProps({req}) {
+  const session = await getSession({req})
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {},
+  }
+}
 function Login() {
   return (
     <>
