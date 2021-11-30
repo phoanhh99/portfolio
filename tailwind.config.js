@@ -10,19 +10,25 @@ module.exports = {
     logs: true,
     rtl: false,
   },
+  variants: {
+    transitionProperty: ['responsive', 'motion-safe', 'motion-reduce'],
+  },
   theme: {
-    boxShadow: {
-      'side--left':
-        'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
-    },
     extend: {
+      boxShadow: {
+        'side--left':
+          'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
+      },
       transitionTimingFunction: {
         'bounce-in-out': 'cubic-bezier(.59,-0.06,.37,1.03)',
       },
       backgroundImage: {
         'hero-background': `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/ava/gallery1.jpg')`,
         'login-background': `url('/images/background/collins-lesulie-P3l3cqVLoRs-unsplash.jpg')`,
-        'rainbow-color': `linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff)`,
+        'rainbow-color': `linear-gradient(60deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3)`,
+      },
+      backgroundSize: {
+        'super-big': '400% 200%',
       },
       colors: {
         transparent: 'transparent',
@@ -69,15 +75,12 @@ module.exports = {
             opacity: 100,
           },
         },
-        'gradient-color-run': {
-          '0%': {
-            backgroundPostion: '0 0',
+        rainbow: {
+          '0%, 100%': {
+            'background-position': '0% 80%',
           },
           '50%': {
-            backgroundPostion: '100% 0',
-          },
-          '100%': {
-            backgroundPostion: '0 0',
+            'background-position': '100% 20%',
           },
         },
       },
@@ -88,7 +91,7 @@ module.exports = {
         'sliding-out-left': 'slide-left .5s ease-out 1',
         'sliding-in-right': 'slide-right .5s ease-in 1',
         'sliding-out-right': 'slide-right .5s ease-out 1',
-        'gradient-color-run': 'gradient-color-run 8s ease-linear infinite',
+        'gradient-color-run': 'rainbow 10s linear infinite',
       },
     },
 

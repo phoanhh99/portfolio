@@ -28,7 +28,7 @@ function VtuberList(props, ref) {
         These are some of my favorite vtubers:
         <div
           className={classNames(
-            'grid py-5 grid-cols-1 gap-10 transform transition-transform delay-100 duration-700 ease-in-out items-center md:grid-cols-2 md:grid-row-2 md:gap-6 lg:grid-cols-3 lg:gap-8',
+            'grid py-5 grid-cols-1 gap-10 transform transition-transform motion-reduce:transition-none motion-reduce:transform-none delay-100 duration-700 ease-in-out items-center md:grid-cols-2 md:grid-row-2 md:gap-6 lg:grid-cols-3 lg:gap-8',
             slideInClass
           )}
         >

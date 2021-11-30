@@ -14,6 +14,7 @@ const nextConfig = withPlaiceholder({
       'user-images.strikinglycdn.com',
       'images.microcms-assets.io',
       'avatars.githubusercontent.com',
+      'platform-lookaside.fbsbx.com',
     ],
   },
   webpack: config => {
