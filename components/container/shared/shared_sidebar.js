@@ -98,7 +98,7 @@ export default function SharedSideBar(props) {
             </button>
           </li>
           <li className='my-1'>
-            {profile.isAuthenticated ? (
+            {profile.isAuthenticated === true ? (
               <UserSection profile={profile} />
             ) : (
               <LoginSection theme={theme} />

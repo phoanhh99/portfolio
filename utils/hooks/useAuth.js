@@ -33,6 +33,14 @@ export default function useAuth() {
         }
       })
     }
+    if (status === 'loading') {
+      setProfile(prev => {
+        return {
+          ...prev,
+          isAuthenticated: 'loading',
+        }
+      })
+    }
   }, [status])
   return {profile}
 }
