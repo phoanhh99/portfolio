@@ -9,7 +9,7 @@ import Header from 'next/head'
 import {
   FacebookLoginButton,
   GithubLoginButton,
-  TwitterLoginButton,
+  DiscordLoginButton,
 } from 'react-social-login-buttons'
 
 import {signIn} from 'next-auth/react'
@@ -42,7 +42,7 @@ function Login() {
                   <GithubLoginButton onClick={() => signIn('github')} />
                 </li>
                 <li>
-                  <TwitterLoginButton />
+                  <DiscordLoginButton onClick={() => signIn('discord')} />
                 </li>
               </ul>
               <div className='divider text-indigo-700 font-semibold uppercase'>

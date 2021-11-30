@@ -15,6 +15,7 @@ const nextConfig = withPlaiceholder({
       'images.microcms-assets.io',
       'avatars.githubusercontent.com',
       'platform-lookaside.fbsbx.com',
+      'cdn.discordapp.com',
     ],
   },
   webpack: config => {
