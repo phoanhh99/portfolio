@@ -7,7 +7,7 @@ const LoginSection = ({theme}) => {
     'text-lg font-semibold font-mono tracking-wide md:tracking-wider xl:tracking-widest'
   )
   const customSVG = cn(
-    'h-7 w-7 p-1 md:h-8 md:w-8 stroke-current',
+    'h-7 w-7 p-1 md:h-8 md:w-8 stroke-current select-none',
     theme ? 'text-yellow-500' : 'text-gray-500'
   )
   return (

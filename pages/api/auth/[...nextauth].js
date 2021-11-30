@@ -1,21 +1,26 @@
 import NextAuth from 'next-auth'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GithubProvider from 'next-auth/providers/github'
-// import TwitterProvider from 'next-auth/providers/twitter'
+import DiscordProvider from 'next-auth/providers/discord'
 export default NextAuth({
   secret: 'motionblur',
-  pages: {
-    signIn: '/login',
-  },
-  callbacks: {
-    async redirect({url, baseUrl}) {
-      console.log(`URL: ${url} \n\rbaseURL:${baseUrl}`)
-      return baseUrl
-    },
+  session: {
+    maxAge: 60 * 60 * 12, //12hours
+    updateAge: 60 * 60 * 6,
   },
   events: {
     async signIn(message) {
       console.log(`Welcome ${message.user.name}`)
+    },
+    async error(message) {
+      /* on signout */
+      console.log(message)
+    },
+  },
+  callbacks: {
+    async redirect({url, baseUrl}) {
+      console.log(url)
+      return baseUrl
     },
   },
   providers: [
@@ -26,6 +31,10 @@ export default NextAuth({
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRETS,
+    }),
+    DiscordProvider({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
     }),
   ],
 })

@@ -16,8 +16,8 @@ export default function SharedHeader() {
 
   return (
     <>
-      <nav className='flex flex-col sticky top-0 drop-shadow-lg w-full z-10 h-20'>
-        <div className='navbar bg-base-100 h-full'>
+      <nav className='flex flex-col sticky top-0 drop-shadow-lg w-full z-10 min-h-16 max-h-32'>
+        <div className='navbar bg-base-100 h-28'>
           <div className='flex-none px-2 mx-2'>
             <h4 className='text-3xl lg:text-2xl font-bold'>
               <span className='bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-pink-500 select-none '>
@@ -63,7 +63,7 @@ export default function SharedHeader() {
                 fill={theme ? '#F59E0B' : 'none'}
               />
             </div>
-            {profile.isAuthenticated ? (
+            {profile.isAuthenticated === true ? (
               <UserSection profile={profile} />
             ) : (
               <LoginSection theme={theme} />
