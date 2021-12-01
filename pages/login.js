@@ -1,18 +1,20 @@
-import React from 'react'
-import Link from 'next/link'
 import {
-  MailIcon,
-  LockClosedIcon,
   ArrowNarrowLeftIcon,
+  LockClosedIcon,
+  MailIcon,
 } from '@heroicons/react/solid'
+import cn from 'classnames'
+import {getSession, signIn} from 'next-auth/react'
 import Header from 'next/head'
+import Link from 'next/link'
+import React from 'react'
 import {
+  DiscordLoginButton,
   FacebookLoginButton,
   GithubLoginButton,
-  DiscordLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons'
-import {getSession, signIn} from 'next-auth/react'
+import useAuth from '~/utils/hooks/useAuth'
 
 export async function getServerSideProps({req}) {
   const session = await getSession({req})
@@ -29,8 +31,15 @@ export async function getServerSideProps({req}) {
   }
 }
 function Login() {
+  const {
+    field: {email},
+    handleOnChange,
+    error,
+  } = useAuth()
+  const hasError = Object.values(error).some(value => value !== '')
+
   const socialBtnCustom =
-    'font-bold font-mono text-lg uppercase tracking-wide transition-transform  hover:scale-105 shadow-lg hover:shadow-xl'
+    'font-bold text-lg uppercase tracking-wide transition-transform  hover:scale-105 shadow-lg hover:shadow-xl'
   return (
     <>
       <Header>
@@ -51,7 +60,7 @@ function Login() {
           <div className='w-1/2 md:block hidden xl:bg-login-background-xl md:bg-login-background-md bg-cover bg-center bg-no-repeat'></div>
           <div className='w-full lg:w-1/2 py-8 px-5 lg:p-7 my-10 lg:my-20'>
             <div className='text-left lg:text-center font-sans'>
-              <h3 className='text-gray-800 text-3xl font-bold italic uppercase pb-5 lg:pb-7 text-center'>
+              <h3 className='text-gray-800 text-3xl font-bold uppercase pb-5 lg:pb-7 text-center'>
                 We provide you with many modern ways for signing in
                 <style jsx>{`
                   h3 {
@@ -101,28 +110,62 @@ function Login() {
                 Free forever. No payment needed.
               </small>
             </div>
-            <form className='p-0 text-gray-700 font-mono text-lg'>
-              <div className='mt-5 relative transition-colors focus-within:text-indigo-500'>
+            <form
+              className={cn(
+                'p-0 font-sans text-lg',
+                hasError ? 'text-error' : 'text-gray-500'
+              )}
+            >
+              <div
+                className={cn(
+                  'py-5 relative transition-colors ',
+                  hasError
+                    ? 'focus-within:text-red-600'
+                    : 'focus-within:text-indigo-500'
+                )}
+              >
                 <div className='absolute inset-y-0 left-0 mx-2 flex items-center justify-center'>
                   <MailIcon className='h-7 w-7 pointer-events-none' />
                 </div>
                 <input
                   type='email'
-                  className='text-black placeholder-opacity-70 block w-full px-10 py-3 md:py-5 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-500 '
-                  placeholder='EMAIL'
+                  className='text-black placeholder-opacity-70 block w-full px-10 py-3 md:py-5 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400'
+                  placeholder='example@gmail.com'
+                  name='email'
                   autoComplete='off'
+                  onChange={e => handleOnChange(e)}
+                  value={email}
                 />
+                {error.email !== '' && (
+                  <span className='absolute px-2 italic font-light text-sm'>
+                    {error['email']}
+                  </span>
+                )}
               </div>
-              <div className='mt-5 relative transition-colors focus-within:text-blue-500'>
+              <div
+                className={cn(
+                  'py-5 relative transition-colors',
+                  hasError
+                    ? 'focus-within:text-red-600'
+                    : 'focus-within:text-blue-500'
+                )}
+              >
                 <div className='absolute inset-y-0 left-0 mx-2 flex items-center justify-center '>
                   <LockClosedIcon className='h-7 w-7  pointer-events-none' />
                 </div>
                 <input
                   type='password'
-                  className='text-black placeholder-opacity-70 block w-full  px-10 py-3 md:py-5 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-500  '
-                  placeholder='PASSWORD'
+                  className='text-black placeholder-opacity-70 block w-full  px-10 py-3 md:py-5 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 '
+                  placeholder='***********'
+                  name='password'
                   autoComplete='off'
+                  onChange={e => handleOnChange(e)}
                 />
+                {error.password !== '' && (
+                  <span className='absolute px-2 italic font-light text-sm'>
+                    {error['password']}
+                  </span>
+                )}
               </div>
               <div className='mt-10'>
                 <input
@@ -132,13 +175,13 @@ function Login() {
                   className='py-3 lg:text-lg xl:text-2xl bg-gradient-to-r from-yellow-600 to-yellow-900 text-white w-full rounded transition-all transform hover:scale-105 hover:shadow-xl cursor-pointer'
                 />
               </div>
-              <div className='mt-5 italic'>
+              <div className='mt-5 italic text-base-300 font-medium font-sans'>
                 <small>
                   Don&apos;t have an account?{' '}
-                  <Link href='/signup'>
-                    <a className='mr-2 underline'>Sign up</a>
-                  </Link>
-                  instead
+                  <Link href='/signup' replace>
+                    <a className='mx-auto hover:underline'>Join us</a>
+                  </Link>{' '}
+                  now
                 </small>
               </div>
             </form>
