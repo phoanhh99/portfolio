@@ -10,6 +10,7 @@ import {
   FacebookLoginButton,
   GithubLoginButton,
   DiscordLoginButton,
+  GoogleLoginButton,
 } from 'react-social-login-buttons'
 import {getSession, signIn} from 'next-auth/react'
 
@@ -28,6 +29,8 @@ export async function getServerSideProps({req}) {
   }
 }
 function Login() {
+  const socialBtnCustom =
+    'font-bold font-mono text-lg uppercase tracking-wide transition-transform  hover:scale-105 shadow-lg hover:shadow-xl'
   return (
     <>
       <Header>
@@ -35,7 +38,7 @@ function Login() {
       </Header>
 
       <div className='flex justify-center items-center min-h-screen min-w-screen bg-gradient-to-bl from-yellow-800 to-yellow-600 '>
-        <div className='relative flex m-auto flex-col lg:flex-row h-min lg:h-1/3 md:w-2/3 xl:w-3/5 drop-shadow-md bg-white rounded-md animate-fade-in'>
+        <div className='relative flex m-auto flex-col lg:flex-row min-h-16 h-full lg:h-2/3 md:w-2/3 xl:w-4/5 shadow-md bg-white md:rounded-md animate-fade-in text-lg md:text-2xl'>
           <Link href='/'>
             <a
               role={'button'}
@@ -45,30 +48,58 @@ function Login() {
               Back to homepage
             </a>
           </Link>
-          <div className='w-1/2 md:block hidden bg-login-background bg-cover bg-center bg-no-repeat'></div>
-          <div className='w-full lg:w-1/2 py-8 px-5 lg:p-7 my-10 lg:my-24 drop-shadow-lg'>
-            <div className='text-left font-sans'>
-              <ul>
+          <div className='w-1/2 md:block hidden xl:bg-login-background-xl md:bg-login-background-md bg-cover bg-center bg-no-repeat'></div>
+          <div className='w-full lg:w-1/2 py-8 px-5 lg:p-7 my-10 lg:my-20'>
+            <div className='text-left lg:text-center font-sans'>
+              <h3 className='text-gray-800 text-3xl font-bold italic uppercase pb-5 lg:pb-7 text-center'>
+                We provide you with many modern ways for signing in
+                <style jsx>{`
+                  h3 {
+                    text-shadow: 0.1em 0.1em 0.5rem #c9c9c9;
+                  }
+                `}</style>
+              </h3>
+
+              <ul className='inline-grid w-full gap-y-2 xl:gap-y-4'>
                 <li>
-                  <FacebookLoginButton onClick={() => signIn('facebook')} />
+                  <FacebookLoginButton
+                    onClick={() => signIn('facebook')}
+                    align='center'
+                    className={socialBtnCustom}
+                  />
                 </li>
                 <li>
-                  <GithubLoginButton onClick={() => signIn('github')} />
+                  <GithubLoginButton
+                    onClick={() => signIn('github')}
+                    align='center'
+                    className={socialBtnCustom}
+                  />
                 </li>
                 <li>
-                  <DiscordLoginButton onClick={() => signIn('discord')} />
+                  <DiscordLoginButton
+                    onClick={() => signIn('discord')}
+                    align='center'
+                    className={socialBtnCustom}
+                  />
+                </li>
+                <li>
+                  <GoogleLoginButton
+                    onClick={() => signIn('google')}
+                    align='center'
+                    className={socialBtnCustom}
+                  />
                 </li>
               </ul>
               <div className='divider text-indigo-700 font-semibold uppercase'>
                 Or
               </div>
-              <h1 className='text-gray-800 text-3xl font-medium lg:text-center'>
-                Sign in with traditional way
+              <h1 className='text-gray-800 text-2xl font-medium italic font-serif'>
+                Preferred the good old days ? we got you cover too!
                 <br />
-                {/* <span className='p-1 text-gray-700 text-lg font-normal'>
-                  Free forever. No payment needed.
-                </span> */}
               </h1>
+              <small className='p-1 text-gray-400 italic text-center'>
+                Free forever. No payment needed.
+              </small>
             </div>
             <form className='p-0 text-gray-700 font-mono text-lg'>
               <div className='mt-5 relative transition-colors focus-within:text-indigo-500'>
@@ -98,17 +129,17 @@ function Login() {
                   role='button'
                   type='submit'
                   value='CONTINUE'
-                  className='py-3 lg:text-lg xl:text-2xl bg-gradient-to-r from-yellow-600 to-yellow-900 text-white w-full rounded transition-all transform hover:scale-105 hover:drop-shadow-xl cursor-pointer'
+                  className='py-3 lg:text-lg xl:text-2xl bg-gradient-to-r from-yellow-600 to-yellow-900 text-white w-full rounded transition-all transform hover:scale-105 hover:shadow-xl cursor-pointer'
                 />
               </div>
               <div className='mt-5 italic'>
-                <h5>
-                  Doesn&apos;t have an account?{' '}
+                <small>
+                  Don&apos;t have an account?{' '}
                   <Link href='/signup'>
                     <a className='mr-2 underline'>Sign up</a>
                   </Link>
                   instead
-                </h5>
+                </small>
               </div>
             </form>
           </div>
