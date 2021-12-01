@@ -16,6 +16,7 @@ const nextConfig = withPlaiceholder({
       'avatars.githubusercontent.com',
       'platform-lookaside.fbsbx.com',
       'cdn.discordapp.com',
+      'lh3.googleusercontent.com',
     ],
   },
   webpack: config => {
@@ -24,6 +25,11 @@ const nextConfig = withPlaiceholder({
       path: false,
     }
     return config
+  },
+  swcMinify: true,
+  experimental: {
+    // ssr and displayName are configured by default
+    styledComponents: true,
   },
 })
 

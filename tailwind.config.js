@@ -29,7 +29,8 @@ module.exports = {
       },
       backgroundImage: {
         'hero-background': `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/ava/gallery1.jpg')`,
-        'login-background': `url('/images/background/collins-lesulie-P3l3cqVLoRs-unsplash.jpg')`,
+        'login-background-xl': `url('/images/background/collins-lesulie-P3l3cqVLoRs-unsplash.jpg')`,
+        'login-background-md': `url('/images/background/elise-wilcox-TKflRMFGxtc-unsplash.jpg')`,
         'rainbow-color': `linear-gradient(60deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3)`,
       },
       backgroundSize: {

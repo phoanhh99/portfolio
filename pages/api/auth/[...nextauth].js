@@ -2,6 +2,7 @@ import NextAuth from 'next-auth'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GithubProvider from 'next-auth/providers/github'
 import DiscordProvider from 'next-auth/providers/discord'
+import GoogleProvider from 'next-auth/providers/google'
 export default NextAuth({
   secret: 'motionblur',
   session: {
@@ -9,17 +10,20 @@ export default NextAuth({
     updateAge: 60 * 60 * 10,
   },
   events: {
-    async signIn(message) {
-      console.log(`Welcome ${message.user.name}`)
+    async signIn(props) {
+      console.log(`Welcome ${props.profile.name}`)
     },
     async error(message) {
-      /* on signout */
       console.log(message)
     },
   },
+  pages: {
+    signIn: '/login',
+  },
   callbacks: {
+    // eslint-disable-next-line no-unused-vars
     async redirect({url, baseUrl}) {
-      console.log(url)
+      if (url.startsWith(baseUrl)) return url
       return baseUrl
     },
   },
@@ -35,6 +39,17 @@ export default NextAuth({
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID,
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: 'consent',
+          access_type: 'offline',
+          response_type: 'code',
+        },
+      },
     }),
   ],
 })
