@@ -1,10 +1,8 @@
 import {useSession} from 'next-auth/react'
-import {useEffect, useState} from 'react'
-
-const emailRegex = new RegExp(/(^\S{6,20}@\S+\.\S{2,}$)/, 'g'),
-  passwordRegex = new RegExp(/^([\w\d-_]{6,20})$/g, 'g')
-
-export default function useAuth() {
+import {useCallback, useEffect, useState} from 'react'
+const emailRegex = /(^\S{6,20}@\S+\.\S{2,}$)/g,
+  passwordRegex = /^([\w\d-_]{6,20})$/g
+export default function useAuth(userDataArr) {
   const {data: session, status} = useSession()
   const [profile, setProfile] = useState({
     name: '',
@@ -36,6 +34,18 @@ export default function useAuth() {
         }
       })
     }
+    if (window?.sessionStorage.getItem('user-info')) {
+      const data = JSON.parse(window?.sessionStorage.getItem('user-info'))
+      setProfile(prev => {
+        return {
+          ...prev,
+          name: data.name,
+          email: data.email,
+          image: data.image,
+          isAuthenticated: true,
+        }
+      })
+    }
   }, [session, status])
   useEffect(() => {
     if (status === 'authenticated') {
@@ -64,41 +74,79 @@ export default function useAuth() {
       }
     })
 
-  useEffect(() => {
-    const invalidEmail = !emailRegex.test(field.email)
-    if (invalidEmail && field.email !== '') {
+  const validField = useCallback(() => {
+    if (field.email === '' || field.password === '') return false
+    const isEmailValid = !!field.email.match(emailRegex)
+    const isPasswordValid = !!field.password.match(passwordRegex)
+    if (!isEmailValid) {
       setError(prev => {
         return {
           ...prev,
           email: 'Email is invalid, try again',
         }
       })
-    } else
-      setError(prev => {
-        return {
-          ...prev,
-          email: '',
-        }
-      })
-  }, [field.email])
-
-  useEffect(() => {
-    const invalidPassword = !passwordRegex.test(field.password)
-    if (invalidPassword && field.password !== '') {
+    } else setError(prev => ({...prev, email: ''}))
+    if (!isPasswordValid) {
       setError(prev => {
         return {
           ...prev,
           password: 'Password is invalid, try again',
         }
       })
-    } else
+    } else setError(prev => ({...prev, password: ''}))
+  }, [field.email, field.password])
+
+  const handleFocus = e => {
+    error[`${e?.target?.name}`] !== '' &&
       setError(prev => {
         return {
           ...prev,
-          password: '',
+          [e?.target?.name]: '',
         }
       })
-  }, [field.password])
+  }
 
-  return {profile, session, field, error, handleOnChange}
+  const handleSubmitForm = useCallback(
+    e => {
+      e.preventDefault()
+      const hasError = Object.values(error).some(value => value !== '')
+      if (hasError) return false
+      const userValid = userDataArr.some(
+        user =>
+          user['email'] === field.email && user['password'] === field.password
+      )
+      if (userValid) {
+        const userInformation = userDataArr.filter(
+          v => v['email'] === field.email && v['password'] === field.password
+        )[0]
+        sessionStorage.setItem(
+          'user-info',
+          JSON.stringify({
+            email: userInformation?.email,
+            name: userInformation?.name,
+            image: userInformation?.image,
+          })
+        )
+        window.location.href = '/'
+      } else
+        setError(prev => {
+          return {
+            ...prev,
+            form: 'User does not existed',
+          }
+        })
+    },
+    [error, field.email, field.password, userDataArr]
+  )
+
+  return {
+    profile,
+    session,
+    field,
+    error,
+    handleOnChange,
+    validField,
+    handleFocus,
+    handleSubmitForm,
+  }
 }

@@ -14,10 +14,12 @@ import {
   GithubLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons'
+import {getUserData} from '~/lib/controller/signInController'
 import useAuth from '~/utils/hooks/useAuth'
 
 export async function getServerSideProps({req}) {
   const session = await getSession({req})
+  const userDataArr = await getUserData()
   if (session) {
     return {
       redirect: {
@@ -27,17 +29,21 @@ export async function getServerSideProps({req}) {
     }
   }
   return {
-    props: {},
+    props: {
+      userDataArr,
+    },
   }
 }
-function Login() {
+function Login({userDataArr}) {
   const {
     field: {email},
     handleOnChange,
     error,
-  } = useAuth()
+    validField,
+    handleFocus,
+    handleSubmitForm,
+  } = useAuth(userDataArr)
   const hasError = Object.values(error).some(value => value !== '')
-
   const socialBtnCustom =
     'font-bold text-lg uppercase tracking-wide transition-transform  hover:scale-105 shadow-lg hover:shadow-xl'
   return (
@@ -111,6 +117,7 @@ function Login() {
               </small>
             </div>
             <form
+              onSubmit={e => handleSubmitForm(e)}
               className={cn(
                 'p-0 font-sans text-lg',
                 hasError ? 'text-error' : 'text-gray-500'
@@ -134,9 +141,11 @@ function Login() {
                   name='email'
                   autoComplete='off'
                   onChange={e => handleOnChange(e)}
+                  onBlurCapture={e => validField(e)}
+                  onFocus={e => handleFocus(e)}
                   value={email}
                 />
-                {error.email !== '' && (
+                {error['email'] !== '' && (
                   <span className='absolute px-2 italic font-light text-sm'>
                     {error['email']}
                   </span>
@@ -160,8 +169,10 @@ function Login() {
                   name='password'
                   autoComplete='off'
                   onChange={e => handleOnChange(e)}
+                  onBlurCapture={e => validField(e)}
+                  onFocus={e => handleFocus(e)}
                 />
-                {error.password !== '' && (
+                {error['password'] !== '' && (
                   <span className='absolute px-2 italic font-light text-sm'>
                     {error['password']}
                   </span>
@@ -175,7 +186,7 @@ function Login() {
                   className='py-3 lg:text-lg xl:text-2xl bg-gradient-to-r from-yellow-600 to-yellow-900 text-white w-full rounded transition-all transform hover:scale-105 hover:shadow-xl cursor-pointer'
                 />
               </div>
-              <div className='mt-5 italic text-base-300 font-medium font-sans'>
+              <div className='mt-5 italic text-primary-focus font-medium font-sans'>
                 <small>
                   Don&apos;t have an account?{' '}
                   <Link href='/signup' replace>
