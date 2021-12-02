@@ -12,7 +12,7 @@ import UserSection from './userSection'
 export default function SharedHeader() {
   const {isPressed, openIt, closeIt} = useOpenSidebar()
   const {theme, saveLocal} = useContext(ThemeContext)
-  const {profile} = useAuth()
+  const {profile, session} = useAuth()
 
   return (
     <>
@@ -64,7 +64,7 @@ export default function SharedHeader() {
               />
             </div>
             {profile.isAuthenticated === true ? (
-              <UserSection profile={profile} />
+              <UserSection profile={profile} session={session} />
             ) : (
               <LoginSection theme={theme} />
             )}

@@ -33,8 +33,7 @@ export default function useAuth(userDataArr) {
           image: image,
         }
       })
-    }
-    if (window?.sessionStorage.getItem('user-info')) {
+    } else if (window?.sessionStorage.getItem('user-info')) {
       const data = JSON.parse(window?.sessionStorage.getItem('user-info'))
       setProfile(prev => {
         return {
@@ -127,7 +126,7 @@ export default function useAuth(userDataArr) {
             image: userInformation?.image,
           })
         )
-        window.location.href = '/'
+        window.location.replace('/')
       } else
         setError(prev => {
           return {
