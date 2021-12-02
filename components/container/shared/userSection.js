@@ -1,4 +1,5 @@
 import {Popover, Transition} from '@headlessui/react'
+import {UserIcon} from '@heroicons/react/outline'
 import {signOut} from 'next-auth/react'
 import Image from 'next/image'
 
@@ -10,7 +11,7 @@ const UserSection = ({profile: {image, name, email, isAuthenticated}}) => (
           <div className='m-auto relative w-16 h-16 rounded-full ring-4 ring-primary'>
             {isAuthenticated === 'loading' ? (
               <div className='w-16 h-16 rounded-full bg-gray-400 animate-pulse m-auto'></div>
-            ) : (
+            ) : isAuthenticated && image ? (
               <Image
                 src={image}
                 alt='user-avatar'
@@ -20,6 +21,10 @@ const UserSection = ({profile: {image, name, email, isAuthenticated}}) => (
                 loading='lazy'
                 className='rounded-full select-none'
               />
+            ) : (
+              <div className='w-16 h-16 rounded-full m-auto relative'>
+                <UserIcon className='w-10 h-10 m-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 fill-current stroke-current stroke-2 text-red-700' />
+              </div>
             )}
           </div>
 
