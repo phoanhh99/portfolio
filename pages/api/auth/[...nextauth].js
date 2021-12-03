@@ -6,8 +6,13 @@ import GoogleProvider from 'next-auth/providers/google'
 export default NextAuth({
   secret: 'motionblur',
   session: {
+    strategy: 'jwt',
     maxAge: 60 * 60 * 12, //12hours
     updateAge: 60 * 60 * 10,
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET || 'motionblursickness',
+    maxAge: 60 * 60 * 12,
   },
   events: {
     async signIn(props) {

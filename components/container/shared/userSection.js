@@ -9,8 +9,6 @@ const UserSection = props => {
     session,
   } = props
   const handleLogOut = () => {
-    // eslint-disable-next-line no-debugger
-    debugger
     if (session) {
       return signOut()
     } else {

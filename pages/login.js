@@ -4,6 +4,7 @@ import {
   MailIcon,
 } from '@heroicons/react/solid'
 import cn from 'classnames'
+import {getToken} from 'next-auth/jwt'
 import {getSession, signIn} from 'next-auth/react'
 import Header from 'next/head'
 import Link from 'next/link'
@@ -17,10 +18,13 @@ import {
 import {getUserData} from '~/lib/controller/signInController'
 import useAuth from '~/utils/hooks/useAuth'
 
+const secret = process.env.JWT_SECRET
+
 export async function getServerSideProps({req}) {
   const session = await getSession({req})
+  const jwt = await getToken({req, secret})
   const userDataArr = await getUserData()
-  if (session) {
+  if (session || jwt || req.cookies['user-info']) {
     return {
       redirect: {
         destination: '/',
