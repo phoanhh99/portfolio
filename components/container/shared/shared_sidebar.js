@@ -16,7 +16,7 @@ import UserSection from './userSection'
 
 export default function SharedSideBar(props) {
   const {theme, isPressed, closeIt, toggleTheme} = props
-  const {profile} = useAuth()
+  const {profile, session} = useAuth()
 
   useEventHandlers('keydown', e => {
     const screen = document.getElementsByTagName('body')[0].offsetWidth
@@ -99,7 +99,7 @@ export default function SharedSideBar(props) {
           </li>
           <li className='my-1'>
             {profile.isAuthenticated === true ? (
-              <UserSection profile={profile} />
+              <UserSection profile={profile} session={session} />
             ) : (
               <LoginSection theme={theme} />
             )}

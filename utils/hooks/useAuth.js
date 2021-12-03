@@ -1,5 +1,6 @@
 import {useSession} from 'next-auth/react'
 import {useCallback, useEffect, useState} from 'react'
+import fnFindCookie from 'utils/helpers/findCookie'
 const emailRegex = /(^\S{6,20}@\S+\.\S{2,}$)/g,
   passwordRegex = /^([\w\d-_]{6,20})$/g
 export default function useAuth(userDataArr) {
@@ -33,8 +34,8 @@ export default function useAuth(userDataArr) {
           image: image,
         }
       })
-    } else if (window?.sessionStorage.getItem('user-info')) {
-      const data = JSON.parse(window?.sessionStorage.getItem('user-info'))
+    } else if (fnFindCookie('user-info')) {
+      const data = JSON.parse(fnFindCookie('user-info'))
       setProfile(prev => {
         return {
           ...prev,
@@ -118,14 +119,12 @@ export default function useAuth(userDataArr) {
         const userInformation = userDataArr.filter(
           v => v['email'] === field.email && v['password'] === field.password
         )[0]
-        sessionStorage.setItem(
-          'user-info',
-          JSON.stringify({
-            email: userInformation?.email,
-            name: userInformation?.name,
-            image: userInformation?.image,
-          })
-        )
+        document.cookie = `user-info = ${JSON.stringify({
+          email: userInformation?.email,
+          name: userInformation?.name,
+          image: userInformation?.image,
+        })}; max-age = ${60 * 60 * 12}; path=/; samesite=lax`
+
         window.location.replace('/')
       } else
         setError(prev => {
