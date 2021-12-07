@@ -1,9 +1,6 @@
 import cn from 'classnames'
-import {useContext} from 'react'
-import {ThemeContext} from '../layout/layout'
-
-export default function Loading() {
-  const {theme} = useContext(ThemeContext)
+export default function Loading(props) {
+  const {theme} = props
   const bg__dl = theme ? 'bg-gray-800' : 'bg-gray-200'
   return (
     <>

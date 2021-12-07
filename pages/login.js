@@ -15,15 +15,15 @@ import {
   GithubLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons'
-import {getUserData} from '~/lib/controller/signInController'
+import {getRandomBgImage, getUserData} from '~/lib/controller/signInController'
 import useAuth from '~/utils/hooks/useAuth'
-
+import Image from 'next/image'
 const secret = process.env.JWT_SECRET
-
 export async function getServerSideProps({req}) {
   const session = await getSession({req})
   const jwt = await getToken({req, secret})
   const userDataArr = await getUserData()
+  const getBg = await getRandomBgImage()
   if (session || jwt || req.cookies['user-info']) {
     return {
       redirect: {
@@ -32,13 +32,15 @@ export async function getServerSideProps({req}) {
       },
     }
   }
+
   return {
     props: {
       userDataArr,
+      getBg,
     },
   }
 }
-function Login({userDataArr}) {
+function Login({userDataArr, getBg: {imgSrc, blurImg}}) {
   const {
     field: {email},
     handleOnChange,
@@ -50,6 +52,7 @@ function Login({userDataArr}) {
   const hasError = Object.values(error).some(value => value !== '')
   const socialBtnCustom =
     'font-bold text-lg uppercase tracking-wide transition-transform  hover:scale-105 shadow-lg hover:shadow-xl'
+
   return (
     <>
       <Header>
@@ -61,13 +64,24 @@ function Login({userDataArr}) {
           <Link href='/'>
             <a
               role={'button'}
-              className='absolute inset-x-auto top-3 left-3 text-gray-900 lg:text-white font-semibold tracking-normal md:tracking-wider flex flex-1 flex-row lg:justify-center items-center cursor-pointer rounded-lg transition duration-300  ease-in-out p-2  md:backdrop-filter md:hover:backdrop-blur-lg hover:ring-2 lg:hover:ring-0 hover:ring-gray-900'
+              className='z-20 absolute inset-x-auto top-3 left-3 text-gray-900 lg:text-white font-semibold tracking-normal md:tracking-wider flex flex-1 flex-row lg:justify-center items-center cursor-pointer rounded-lg transition duration-300  ease-in-out p-2  md:backdrop-filter md:hover:backdrop-blur-lg hover:ring-2 lg:hover:ring-0 hover:ring-gray-900'
             >
               <ArrowNarrowLeftIcon className='h-10 w-7 mr-2.5 pointer-events-none' />{' '}
               Back to homepage
             </a>
           </Link>
-          <div className='w-1/2 md:block hidden xl:bg-login-background-xl md:bg-login-background-md bg-cover bg-center bg-no-repeat'></div>
+          <div className='relative w-1/2 md:block hidden'>
+            <Image
+              src={imgSrc}
+              alt='bg-image'
+              layout='fill'
+              loading='lazy'
+              objectFit='cover'
+              objectPosition='center'
+              placeholder='blur'
+              blurDataURL={blurImg}
+            />
+          </div>
           <div className='w-full lg:w-1/2 py-8 px-5 lg:p-7 my-10 lg:my-20'>
             <div className='text-left lg:text-center font-sans'>
               <h3 className='text-gray-800 text-3xl font-bold uppercase pb-5 lg:pb-7 text-center'>
