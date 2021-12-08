@@ -3,10 +3,10 @@ import classNames from 'classnames'
 import Header from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, {useCallback} from 'react'
 import {getCardList} from '~/lib/controller/signUpController'
 import useAutoSlide from '~/utils/hooks/useAutoSlide'
-
+import {useState} from 'react'
 export const getStaticProps = async () => {
   const list = await getCardList()
   return {
@@ -21,6 +21,22 @@ function SignUp({arrList}) {
     cardDetail: {avatar, name, says, transition},
     index,
   } = useAutoSlide(arrList)
+  const [fileUploaded, setUploadedFile] = useState({
+    imgSrc: '',
+    imgName: '',
+  })
+  const handleUpload = useCallback(e => {
+    const file = e?.target?.files[0]
+    const reader = new FileReader()
+    reader.addEventListener('load', event => {
+      setUploadedFile({
+        imgSrc: event.target.result,
+        imgName: file.name,
+      })
+    })
+    reader.readAsDataURL(file)
+  }, [])
+
   return (
     <>
       <Header>
@@ -28,7 +44,7 @@ function SignUp({arrList}) {
       </Header>
 
       <div className='flex justify-start min-h-screen min-w-scren bg-gray-200'>
-        <div className='w-full md:w-1/2 h-screen bg-gray-200 animate-sliding-in-left '>
+        <div className='w-full md:w-1/2 bg-gray-200 animate-sliding-in-left '>
           <Link href='/login' replace>
             <a role='button' className='btn btn-link float-left'>
               Back to login
@@ -72,6 +88,28 @@ function SignUp({arrList}) {
                 autoComplete='off'
               />
             </div>
+            <div className='mt-5 relative'>
+              <label className='btn btn-outline'>
+                <input
+                  type='file'
+                  className='hidden'
+                  accept='image/*'
+                  onChange={handleUpload}
+                />
+                Upload Image
+              </label>
+              {fileUploaded.imgSrc && (
+                <section className='relative h-56 w-56 my-10' id='upload-field'>
+                  <Image
+                    src={fileUploaded.imgSrc}
+                    alt={fileUploaded.imgName}
+                    layout='fill'
+                    loading='lazy'
+                    className='bg-center bg-cover bg-no-repeat shadow-lg rounded-sm'
+                  />
+                </section>
+              )}
+            </div>
             <div className='mt-10'>
               <input
                 role='button'
@@ -84,7 +122,7 @@ function SignUp({arrList}) {
         </div>
         <div className='relative h-screen hidden md:block md:w-1/2 bg-gradient-to-br from-pink-600 to-indigo-800 animate-fade-in'>
           <div className='absolute bottom-0 flex flex-col justify-between items-center h-2/3 w-full'>
-            <div className='grid grid-cols-3 grid-rows-2 gap-y-10'>
+            <div className='grid grid-cols-3 grid-rows-2 gap-y-10 text-gray-100'>
               <div className='avatar items-center col-start-2 col-span-2 select-none'>
                 <div
                   className={classNames(
@@ -92,13 +130,19 @@ function SignUp({arrList}) {
                     transition && 'animate-sliding-out-left'
                   )}
                 >
-                  <Image src={avatar} alt='avatar' width={300} height={300} />
+                  <Image
+                    src={avatar}
+                    alt='avatar'
+                    width={300}
+                    height={300}
+                    priority
+                  />
                 </div>
                 <div className='px-5 text-xl font-light'>{name}</div>
               </div>
               <div
                 className={classNames(
-                  'p-5 font-sans text-lg font-semibold col-span-3',
+                  'p-5 font-sansz text-lg font-semibold col-span-3',
                   transition && 'animate-sliding-out-left'
                 )}
               >

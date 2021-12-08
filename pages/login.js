@@ -60,7 +60,7 @@ function Login({userDataArr, getBg: {imgSrc, blurImg}}) {
       </Header>
 
       <div className='flex justify-center items-center min-h-screen min-w-screen bg-gradient-to-bl from-yellow-800 to-yellow-600 '>
-        <div className='relative flex m-auto flex-col lg:flex-row min-h-16 h-full lg:h-2/3 md:w-2/3 xl:w-4/5 shadow-md bg-white md:rounded-md animate-fade-in text-lg md:text-2xl'>
+        <div className='relative flex m-auto flex-col lg:flex-row min-h-16 h-full md:w-2/3 xl:w-4/5 shadow-md bg-white md:rounded-md animate-fade-in text-lg md:text-2xl'>
           <Link href='/'>
             <a
               role={'button'}
