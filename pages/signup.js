@@ -1,12 +1,14 @@
+import {XIcon} from '@heroicons/react/outline'
 import {LockClosedIcon, MailIcon, UserCircleIcon} from '@heroicons/react/solid'
 import classNames from 'classnames'
 import Header from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, {useCallback} from 'react'
+
 import {getCardList} from '~/lib/controller/signUpController'
 import useAutoSlide from '~/utils/hooks/useAutoSlide'
-import {useState} from 'react'
+import useSignIn from '~/utils/hooks/useSignIn'
+
 export const getStaticProps = async () => {
   const list = await getCardList()
   return {
@@ -21,22 +23,12 @@ function SignUp({arrList}) {
     cardDetail: {avatar, name, says, transition},
     index,
   } = useAutoSlide(arrList)
-  const [fileUploaded, setUploadedFile] = useState({
-    imgSrc: '',
-    imgName: '',
-  })
-  const handleUpload = useCallback(e => {
-    const file = e?.target?.files[0]
-    const reader = new FileReader()
-    reader.addEventListener('load', event => {
-      setUploadedFile({
-        imgSrc: event.target.result,
-        imgName: file.name,
-      })
-    })
-    reader.readAsDataURL(file)
-  }, [])
-
+  const {
+    fileUploaded: {imgName, imgSrc},
+    handleUpload,
+    openInNewTab,
+    clearFile,
+  } = useSignIn()
   return (
     <>
       <Header>
@@ -44,7 +36,7 @@ function SignUp({arrList}) {
       </Header>
 
       <div className='flex justify-start min-h-screen min-w-scren bg-gray-200'>
-        <div className='w-full md:w-1/2 bg-gray-200 animate-sliding-in-left '>
+        <div className='w-full md:w-1/2 h-screen overflow-y-auto bg-gray-200 animate-sliding-in-left '>
           <Link href='/login' replace>
             <a role='button' className='btn btn-link float-left'>
               Back to login
@@ -52,7 +44,7 @@ function SignUp({arrList}) {
           </Link>
           <form
             action='#'
-            className='h-1/2 w-full p-12 text-gray-900 font-mono font-bold'
+            className='w-full p-12 text-gray-900 font-mono font-bold'
           >
             <div className='mt-5 relative transition-colors focus-within:text-indigo-500'>
               <div className='absolute inset-y-0 left-0 mx-2 flex items-center justify-center'>
@@ -89,7 +81,7 @@ function SignUp({arrList}) {
               />
             </div>
             <div className='mt-5 relative'>
-              <label className='btn btn-outline'>
+              <label className='btn btn-outline index'>
                 <input
                   type='file'
                   className='hidden'
@@ -98,16 +90,36 @@ function SignUp({arrList}) {
                 />
                 Upload Image
               </label>
-              {fileUploaded.imgSrc && (
-                <section className='relative h-56 w-56 my-10' id='upload-field'>
-                  <Image
-                    src={fileUploaded.imgSrc}
-                    alt={fileUploaded.imgName}
-                    layout='fill'
-                    loading='lazy'
-                    className='bg-center bg-cover bg-no-repeat shadow-lg rounded-sm'
-                  />
-                </section>
+              {imgSrc && (
+                <>
+                  <div className='m-auto flex flex-wrap justify-center items-center'>
+                    <div
+                      className='relative w-full h-56 my-5 transition-transform hover:shadow-multilayer-pink-left hover:translate-x-4 hover:-translate-y-4 rounded-sm cursor-pointer ring-2 ring-info'
+                      id='upload-field'
+                      onClick={openInNewTab}
+                    >
+                      <Image
+                        src={imgSrc}
+                        alt={imgName}
+                        layout='fill'
+                        loading='lazy'
+                        className='rounded-sm text-center'
+                        objectFit='cover'
+                        objectPosition='center'
+                      />
+                    </div>
+                    <div className='inline-flex items-center m-auto'>
+                      <span>{imgName}</span>
+                      <button
+                        role='button'
+                        className='rounded-full mx-5'
+                        onClick={clearFile}
+                      >
+                        <XIcon className='w-7 h-7 text-error' />
+                      </button>
+                    </div>
+                  </div>
+                </>
               )}
             </div>
             <div className='mt-10'>
