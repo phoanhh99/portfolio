@@ -117,7 +117,8 @@ export default function useAuth(userDataArr) {
       )
       if (userValid) {
         const userInformation = userDataArr.filter(
-          v => v['email'] === field.email && v['password'] === field.password
+          user =>
+            user['email'] === field.email && user['password'] === field.password
         )[0]
         document.cookie = `user-info = ${JSON.stringify({
           email: userInformation?.email,

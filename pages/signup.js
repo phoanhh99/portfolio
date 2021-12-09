@@ -1,11 +1,13 @@
+import {XIcon} from '@heroicons/react/outline'
 import {LockClosedIcon, MailIcon, UserCircleIcon} from '@heroicons/react/solid'
 import classNames from 'classnames'
 import Header from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+
 import {getCardList} from '~/lib/controller/signUpController'
 import useAutoSlide from '~/utils/hooks/useAutoSlide'
+import useSignIn from '~/utils/hooks/useSignIn'
 
 export const getStaticProps = async () => {
   const list = await getCardList()
@@ -21,6 +23,12 @@ function SignUp({arrList}) {
     cardDetail: {avatar, name, says, transition},
     index,
   } = useAutoSlide(arrList)
+  const {
+    fileUploaded: {imgName, imgSrc},
+    handleUpload,
+    openInNewTab,
+    clearFile,
+  } = useSignIn()
   return (
     <>
       <Header>
@@ -28,7 +36,7 @@ function SignUp({arrList}) {
       </Header>
 
       <div className='flex justify-start min-h-screen min-w-scren bg-gray-200'>
-        <div className='w-full md:w-1/2 h-screen bg-gray-200 animate-sliding-in-left '>
+        <div className='w-full md:w-1/2 h-screen overflow-y-auto bg-gray-200 animate-sliding-in-left '>
           <Link href='/login' replace>
             <a role='button' className='btn btn-link float-left'>
               Back to login
@@ -36,7 +44,7 @@ function SignUp({arrList}) {
           </Link>
           <form
             action='#'
-            className='h-1/2 w-full p-12 text-gray-900 font-mono font-bold'
+            className='w-full p-12 text-gray-900 font-mono font-bold'
           >
             <div className='mt-5 relative transition-colors focus-within:text-indigo-500'>
               <div className='absolute inset-y-0 left-0 mx-2 flex items-center justify-center'>
@@ -72,6 +80,48 @@ function SignUp({arrList}) {
                 autoComplete='off'
               />
             </div>
+            <div className='mt-5 relative'>
+              <label className='btn btn-outline index'>
+                <input
+                  type='file'
+                  className='hidden'
+                  accept='image/*'
+                  onChange={handleUpload}
+                />
+                Upload Image
+              </label>
+              {imgSrc && (
+                <>
+                  <div className='m-auto flex flex-wrap justify-center items-center'>
+                    <div
+                      className='relative w-full h-56 my-5 transition-transform hover:shadow-multilayer-pink-left hover:translate-x-4 hover:-translate-y-4 rounded-sm cursor-pointer ring-2 ring-info'
+                      id='upload-field'
+                      onClick={openInNewTab}
+                    >
+                      <Image
+                        src={imgSrc}
+                        alt={imgName}
+                        layout='fill'
+                        loading='lazy'
+                        className='rounded-sm text-center'
+                        objectFit='cover'
+                        objectPosition='center'
+                      />
+                    </div>
+                    <div className='inline-flex items-center m-auto'>
+                      <span>{imgName}</span>
+                      <button
+                        role='button'
+                        className='rounded-full mx-5'
+                        onClick={clearFile}
+                      >
+                        <XIcon className='w-7 h-7 text-error' />
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
             <div className='mt-10'>
               <input
                 role='button'
@@ -84,7 +134,7 @@ function SignUp({arrList}) {
         </div>
         <div className='relative h-screen hidden md:block md:w-1/2 bg-gradient-to-br from-pink-600 to-indigo-800 animate-fade-in'>
           <div className='absolute bottom-0 flex flex-col justify-between items-center h-2/3 w-full'>
-            <div className='grid grid-cols-3 grid-rows-2 gap-y-10'>
+            <div className='grid grid-cols-3 grid-rows-2 gap-y-10 text-gray-100'>
               <div className='avatar items-center col-start-2 col-span-2 select-none'>
                 <div
                   className={classNames(
@@ -92,13 +142,19 @@ function SignUp({arrList}) {
                     transition && 'animate-sliding-out-left'
                   )}
                 >
-                  <Image src={avatar} alt='avatar' width={300} height={300} />
+                  <Image
+                    src={avatar}
+                    alt='avatar'
+                    width={300}
+                    height={300}
+                    priority
+                  />
                 </div>
                 <div className='px-5 text-xl font-light'>{name}</div>
               </div>
               <div
                 className={classNames(
-                  'p-5 font-sans text-lg font-semibold col-span-3',
+                  'p-5 font-sansz text-lg font-semibold col-span-3',
                   transition && 'animate-sliding-out-left'
                 )}
               >
