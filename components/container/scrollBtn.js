@@ -7,6 +7,12 @@ export default function ScrollBtn(props) {
     sm: 'h-7 w-7 pointer-events-none',
     lg: 'h-10 w-10 pointer-events-none',
   }
+
+  const handleScroll = () =>
+    dir === 'up' || (dir === 'down' && !isBottom)
+      ? scrollToTop()
+      : scrollToBottom()
+
   return (
     <>
       {visibility && (
@@ -18,13 +24,7 @@ export default function ScrollBtn(props) {
               : 'fixed bottom-0 transfrom -translate-y-1 -translate-x-1/2 left-1/2',
             ' rounded-full p-3 cursor-pointer text-green-500 hover:border-transparent hover:bg-green-500 hover:text-white transition duration-300 ease-linear'
           )}
-          onClick={() =>
-            dir === 'up'
-              ? scrollToTop()
-              : dir === 'down' && !isBottom
-              ? scrollToBottom()
-              : scrollToTop()
-          }
+          onClick={handleScroll}
         >
           <ChevronUpIcon
             className={classNames(
